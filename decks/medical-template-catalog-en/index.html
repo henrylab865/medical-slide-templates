@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Slide Template Catalog</title>
+  <link rel="stylesheet" href="../../engine/slide.css">
+  <link rel="stylesheet" href="../../theme/journal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+
+    .template-label {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--color-accent);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: .7;
+      z-index: 30;
+    }
+    .slide-title .template-label,
+    .slide-end .template-label { color: var(--color-num); }
+
+
+    .coi-box {
+      border: 2px solid #dde3ea;
+      border-radius: 2px;
+      padding: 48px 56px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .coi-box h3 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #16191f;
+      margin-bottom: 32px;
+    }
+    .coi-box p { font-size: 22px; color: #16191f; line-height: 1.9; }
+    .coi-box .coi-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #16191f;
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid #dde3ea;
+    }
+
+
+    .ethics-box {
+      background: rgba(26,95,180,.04);
+      border: 1px solid rgba(26,95,180,.2);
+      border-radius: 2px;
+      padding: 40px 48px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .ethics-box .ethics-row {
+      display: flex;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(26,95,180,.1);
+      font-size: 22px;
+    }
+    .ethics-box .ethics-row:last-child { border-bottom: none; }
+    .ethics-label {
+      font-weight: 700;
+      color: #16191f;
+      min-width: 180px;
+      flex-shrink: 0;
+    }
+    .ethics-value { color: #16191f; }
+
+
+    .consort {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      font-size: 14px;
+    }
+    .consort-phase {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #5c6470;
+      align-self: flex-start;
+      margin-bottom: 2px;
+      margin-top: 10px;
+    }
+    .consort { position: relative; }
+    .consort-box {
+      background: #fff;
+      border: 1.5px solid #16191f;
+      border-radius: 2px;
+      padding: 8px 18px;
+      text-align: center;
+      width: 230px;
+      font-weight: 600;
+      color: #16191f;
+    }
+    .consort-box.excluded {
+      border-color: #dde3ea;
+      background: rgba(221,227,234,.2);
+      color: #5c6470;
+      font-weight: 400;
+      width: 188px;
+    }
+
+    .consort-row {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .consort-row > .consort-side-arrow,
+    .consort-row > .consort-box.excluded {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .consort-row > .consort-side-arrow { left: calc(50% + 115px); }
+    .consort-row > .consort-box.excluded { left: calc(50% + 115px + 26px); }
+
+    .consort-arrow {
+      position: relative;
+      width: 1.5px;
+      height: 26px;
+      margin: 0 auto;
+      font-size: 0;
+    }
+    .consort-arrow::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 6px;
+      width: 1.5px;
+      background: var(--color-border-strong);
+    }
+    .consort-arrow::after {
+      content: '';
+      position: absolute;
+      left: 50%; bottom: 1px;
+      width: 7px; height: 7px;
+      border-right: 1.5px solid var(--color-border-strong);
+      border-bottom: 1.5px solid var(--color-border-strong);
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .consort-side-arrow {
+      position: relative;
+      width: 26px;
+      height: 1.5px;
+      flex-shrink: 0;
+      font-size: 0;
+    }
+    .consort-side-arrow::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 6px;
+      height: 1.5px;
+      background: var(--color-border-strong);
+    }
+    .consort-side-arrow::after {
+      content: '';
+      position: absolute;
+      top: 50%; right: 1px;
+      width: 7px; height: 7px;
+      border-top: 1.5px solid var(--color-border-strong);
+      border-right: 1.5px solid var(--color-border-strong);
+      transform: translateY(-50%) rotate(45deg);
+    }
+    .consort-split {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+
+    .prisma {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      font-size: 13px;
+    }
+    .prisma-box {
+      background: #fff;
+      border: 1.5px solid #16191f;
+      border-radius: 2px;
+      padding: 7px 16px;
+      text-align: center;
+      width: 250px;
+      color: #16191f;
+    }
+    .prisma-box .num { font-weight: 700; font-size: 16px; color: #1a5fb4; }
+    .prisma-box.excluded {
+      border-color: #dde3ea;
+      background: rgba(221,227,234,.15);
+      color: #5c6470;
+      width: 196px;
+    }
+    .prisma-row {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .prisma-row:has(.excluded) > .consort-side-arrow,
+    .prisma-row:has(.excluded) > .prisma-box.excluded {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .prisma-row:has(.excluded) > .consort-side-arrow { left: calc(50% + 125px); }
+    .prisma-row:has(.excluded) > .prisma-box.excluded { left: calc(50% + 125px + 26px); }
+    .prisma-arrow {
+      position: relative;
+      width: 1.5px;
+      height: 24px;
+      margin: 0 auto;
+      font-size: 0;
+    }
+    .prisma-arrow::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 6px;
+      width: 1.5px;
+      background: var(--color-border-strong);
+    }
+    .prisma-arrow::after {
+      content: '';
+      position: absolute;
+      left: 50%; bottom: 1px;
+      width: 7px; height: 7px;
+      border-right: 1.5px solid var(--color-border-strong);
+      border-bottom: 1.5px solid var(--color-border-strong);
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+
+    .forest-plot {
+      width: 100%;
+      font-size: 14px;
+    }
+    .forest-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 120px;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(221,227,234,.5);
+    }
+    .forest-row.header {
+      font-weight: 700;
+      color: #16191f;
+      border-bottom: 2px solid #dde3ea;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .forest-row.overall {
+      font-weight: 700;
+      border-top: 2px solid #dde3ea;
+      border-bottom: none;
+    }
+    .forest-label { color: #16191f; }
+    .forest-bar-area {
+      position: relative;
+      height: 24px;
+      display: flex;
+      align-items: center;
+    }
+    .forest-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #16191f;
+    }
+    .forest-ci {
+      position: absolute;
+      height: 2px;
+      background: #16191f;
+    }
+    .forest-point {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1a5fb4;
+      transform: translate(-50%, -50%);
+      top: 50%;
+    }
+    .forest-point.diamond {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .forest-hr { font-weight: 600; color: #16191f; text-align: right; }
+
+
+
+    .pico-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      column-gap: var(--grid-gutter, 24px);
+      row-gap: var(--grid-gutter, 24px);
+      flex: 1;
+    }
+    .pico-cell {
+      background: #fff;
+      border: 1px solid #dde3ea;
+      border-radius: 2px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .pico-cell .pico-letter {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1a5fb4;
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+      text-align: center;
+      line-height: 40px;
+      margin-bottom: 16px;
+    }
+    .pico-cell h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #5c6470;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      line-height: 24px;
+      margin-bottom: 8px;
+    }
+    .pico-cell p { font-size: 19px; color: #16191f; line-height: 32px; }
+
+
+    .rob-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid #dde3ea;
+    }
+    .rob-table th {
+      background: #dde3ea;
+      color: #16191f;
+      padding: 13px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: .5px;
+    }
+    .rob-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid #dde3ea;
+      color: #16191f;
+    }
+    .rob-table tr:last-child td { border-bottom: none; }
+    .rob-light {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 26px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .rob-low { background: #059669; }
+    .rob-some { background: #f59e0b; }
+    .rob-high { background: #dc2626; }
+
+
+    .grade-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid #dde3ea;
+    }
+    .grade-table th {
+      background: #dde3ea;
+      color: #16191f;
+      padding: 13px 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .grade-table th:first-child { text-align: left; }
+    .grade-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid #dde3ea;
+      color: #16191f;
+      text-align: center;
+    }
+    .grade-table td:first-child { text-align: left; font-weight: 600; }
+    .grade-table tr:last-child td { border-bottom: none; }
+    .grade-badge {
+      display: inline-block;
+      padding: 2px 12px;
+      border-radius: 2px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #fff;
+    }
+    .grade-high { background: #059669; }
+    .grade-mod { background: #f59e0b; }
+    .grade-low { background: #dc2626; }
+    .grade-vlow { background: #7c3aed; }
+
+
+    .bib-card {
+      background: #fff;
+      border: 1px solid #dde3ea;
+      border-radius: 2px;
+      padding: 40px 48px;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    .bib-card .bib-journal {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a5fb4;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .bib-card .bib-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #16191f;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .bib-card .bib-authors {
+      font-size: 18px;
+      color: #5c6470;
+      margin-bottom: 20px;
+    }
+    .bib-card .bib-meta {
+      display: flex;
+      gap: 28px;
+      font-size: 16px;
+      color: #16191f;
+      padding-top: 20px;
+      border-top: 1px solid #dde3ea;
+    }
+    .bib-meta-item { display: flex; gap: 6px; align-items: center; }
+    .bib-meta-label { font-weight: 700; color: #5c6470; }
+
+
+    .lab-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid #dde3ea;
+    }
+    .lab-table th {
+      background: #dde3ea;
+      color: #16191f;
+      padding: 13px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .lab-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid #dde3ea;
+      color: #16191f;
+    }
+    .lab-table tr:last-child td { border-bottom: none; }
+    .lab-high { color: #dc2626; font-weight: 700; }
+    .lab-low { color: #2563eb; font-weight: 700; }
+    .lab-ref { color: #5c6470; font-size: 13px; }
+
+
+    .ddx-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid #dde3ea;
+    }
+    .ddx-table th {
+      background: #dde3ea;
+      color: #16191f;
+      padding: 13px 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .ddx-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid #dde3ea;
+      color: #16191f;
+      vertical-align: top;
+    }
+    .ddx-table tr:last-child td { border-bottom: none; }
+    .ddx-for { color: #059669; font-weight: 600; }
+    .ddx-against { color: #dc2626; font-weight: 600; }
+
+
+    .vitals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .vital-card {
+      background: #fff;
+      border: 1px solid #dde3ea;
+      border-radius: 2px;
+      padding: 16px 20px;
+      text-align: center;
+    }
+    .vital-card .vital-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #5c6470;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .vital-card .vital-value {
+      font-size: 32px;
+      font-weight: 700;
+      font-family: var(--font-sans);
+    }
+    .vital-card .vital-unit {
+      font-size: 14px;
+      color: #5c6470;
+    }
+    .vital-normal { color: #16191f; }
+    .vital-abnormal { color: #dc2626; }
+
+
+    .clinical-course {
+      width: 100%;
+      position: relative;
+    }
+    .cc-timeline {
+      display: flex;
+      border-bottom: 2px solid #16191f;
+      padding-bottom: 4px;
+      margin-bottom: 0;
+    }
+    .cc-day {
+      flex: 1;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #16191f;
+    }
+    .cc-section {
+      padding: 8px 0;
+      border-bottom: 1px solid #dde3ea;
+    }
+    .cc-section-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #5c6470;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .cc-drug-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 3px;
+    }
+    .cc-drug-name {
+      font-size: 14px;
+      color: #16191f;
+      min-width: 90px;
+      text-align: right;
+      padding-right: 8px;
+    }
+    .cc-drug-bar-area {
+      display: flex;
+      flex: 1;
+    }
+    .cc-drug-bar {
+      height: 16px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .cc-event {
+      display: flex;
+      font-size: 14px;
+    }
+    .cc-event-marker {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #1a5fb4;
+      margin-top: 4px;
+      margin-right: 4px;
+      flex-shrink: 0;
+    }
+
+
+    .discussion-points {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 580px;
+    }
+    .discussion-point {
+      background: #fff;
+      border: 1px solid #dde3ea;
+      border-left: 4px solid #1a5fb4;
+      border-radius: 0 2px 2px 0;
+      padding: 14px 20px;
+    }
+    .discussion-point .dp-num {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a5fb4;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .discussion-point p {
+      font-size: 16px;
+      font-weight: 600;
+      color: #16191f;
+      line-height: 1.5;
+    }
+
+
+    .sl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .sl-col { padding: 0; }
+    .sl-col h3 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+    }
+    .sl-col.strengths h3 { color: #059669; border-bottom: 2px solid #059669; }
+    .sl-col.limitations h3 { color: #dc2626; border-bottom: 2px solid #dc2626; }
+    .sl-col li {
+      font-size: 18px;
+      color: #16191f;
+      line-height: 1.6;
+      margin-bottom: 8px;
+      padding-left: 16px;
+      position: relative;
+    }
+    .sl-col.strengths li::before { content: "+"; position: absolute; left: 0; color: #059669; font-weight: 700; }
+    .sl-col.limitations li::before { content: "−"; position: absolute; left: 0; color: #dc2626; font-weight: 700; }
+
+
+    .table1 {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 16px;
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid #dde3ea;
+    }
+    .table1 th {
+      background: #dde3ea;
+      color: #16191f;
+      padding: 15px 16px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .table1 th:first-child { text-align: left; }
+    .table1 td {
+      padding: 15px 16px;
+      border-bottom: 1px solid #dde3ea;
+      color: #16191f;
+      text-align: center;
+    }
+    .table1 td:first-child { text-align: left; font-weight: 600; color: #16191f; }
+    .table1 tr:last-child td { border-bottom: none; }
+    .table1 .p-sig { color: #1a5fb4; font-weight: 700; }
+
+
+    .highlight-box {
+      background: rgba(26,95,180,.06);
+      border-left: 4px solid #1a5fb4;
+      border-radius: 0 2px 2px 0;
+      padding: 16px 24px;
+    }
+    .highlight-box p { font-size: 18px; font-weight: 600; color: #16191f; margin: 0; }
+
+
+    .slide-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      font-size: 12px;
+      color: #5c6470;
+      font-family: var(--font-sans);
+      z-index: 20;
+      pointer-events: none;
+    }
+    .slide-footer .footer-left { letter-spacing: .5px; }
+    .slide-footer .footer-right { font-family: var(--font-mono); letter-spacing: 1px; }
+
+    .slide-page-num, .slide-counter { display: none !important; }
+
+
+
+    .slide-content { padding-bottom: 80px !important; }
+  </style>
+</head>
+<body>
+
+<div class="deck">
+
+
+
+
+
+
+  <section class="slide slide-title">
+    <span class="template-label">slide-title</span>
+    <p class="label mono">Medical Template Catalog</p>
+    <h1>Medical Slide<br>Template Catalog</h1>
+    <p class="sub">Purpose-built templates for research presentations, journal clubs, and case conferences</p>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">coi-disclosure</span>
+    <div class="body">
+      <h2>Conflict of Interest Disclosure</h2>
+      <div class="coi-box">
+        <h3>Disclosure of the Presenting Author</h3>
+        <p>The presenting author has no relevant<br>financial relationships or conflicts of interest<br>to disclose for this presentation.</p>
+        <p class="coi-name">Presenter: Ken Okamoto, MD</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">coi-disclosure (with COI)</span>
+    <div class="body">
+      <h2>Conflict of Interest Disclosure</h2>
+      <div class="coi-box">
+        <h3>Disclosure of the Presenting Author</h3>
+        <p style="text-align:left;font-size:16px;">
+          2. Consulting fees: Pharma A, Inc.<br>
+          6. Research funding: Medical Devices B, Inc.<br>
+          7. Educational grant: Pharma C, Inc.
+        </p>
+        <p class="coi-name">Presenter: Ken Okamoto, MD</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">ethics-approval</span>
+    <div class="body">
+      <h2>Ethics and Regulatory Information</h2>
+      <div class="ethics-box">
+        <div class="ethics-row"><span class="ethics-label">Review board</span><span class="ethics-value">Aiiku Hospital Institutional Review Board</span></div>
+        <div class="ethics-row"><span class="ethics-label">Approval number</span><span class="ethics-value">IRB-2024-0142</span></div>
+        <div class="ethics-row"><span class="ethics-label">Approval date</span><span class="ethics-value">March 15, 2024</span></div>
+        <div class="ethics-row"><span class="ethics-label">Informed consent</span><span class="ethics-value">Written informed consent obtained</span></div>
+        <div class="ethics-row"><span class="ethics-label">Trial registration</span><span class="ethics-value">UMIN000012345</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">section-break</span>
+    <h2>Research Presentation Templates</h2>
+    <p>Research Presentation Templates</p>
+  </section>
+
+
+
+
+
+
+  <section class="slide slide-content">
+    <span class="template-label">table-1 (patient baseline)</span>
+    <div class="body">
+      <h2>Table 1. Baseline Characteristics</h2>
+      <table class="table1">
+        <tr><th>Variable</th><th>Intervention (n=120)</th><th>Control (n=115)</th><th>p value</th></tr>
+        <tr><td>Age, years (mean ± SD)</td><td>4.2 ± 1.8</td><td>4.5 ± 2.1</td><td>0.26</td></tr>
+        <tr><td>Male, n (%)</td><td>70 (58.3)</td><td>62 (53.9)</td><td>0.48</td></tr>
+        <tr><td>Weight, kg (mean ± SD)</td><td>16.4 ± 3.2</td><td>17.1 ± 3.8</td><td>0.13</td></tr>
+        <tr><td>Comorbidity, n (%)</td><td>14 (11.7)</td><td>16 (13.9)</td><td>0.61</td></tr>
+        <tr><td>Temperature at admission, °C (mean ± SD)</td><td>38.8 ± 0.6</td><td>38.7 ± 0.7</td><td>0.71</td></tr>
+        <tr><td>Time from symptom onset, h (median, IQR)</td><td>12 (8-18)</td><td>14 (9-20)</td><td>0.34</td></tr>
+        <tr><td>Antibiotics before enrollment, n (%)</td><td>22 (18.3)</td><td>28 (24.3)</td><td class="p-sig">0.04</td></tr>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">consort-flow</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>CONSORT Flow Diagram</h2>
+      <div class="consort">
+        <div class="consort-phase">Enrollment</div>
+        <div class="consort-row">
+          <div class="consort-box">Assessed for eligibility (n=380)</div>
+          <div class="consort-side-arrow">→</div>
+          <div class="consort-box excluded">Excluded (n=145)<br><span style="font-size:13px;">Not eligible 82 / Declined 63</span></div>
+        </div>
+        <div class="consort-arrow">↓</div>
+        <div class="consort-phase">Allocation</div>
+        <div class="consort-box">Randomized (n=235)</div>
+        <div class="consort-arrow">↓</div>
+        <div class="consort-split">
+          <div style="text-align:center;">
+            <div class="consort-box">Intervention (n=120)</div>
+            <div class="consort-arrow">↓</div>
+            <div class="consort-box" style="font-size:13px;">Completed follow-up 113<br>Lost to follow-up 7</div>
+            <div class="consort-arrow">↓</div>
+            <div class="consort-box">Analyzed (n=120, ITT)</div>
+          </div>
+          <div style="text-align:center;">
+            <div class="consort-box">Control (n=115)</div>
+            <div class="consort-arrow">↓</div>
+            <div class="consort-box" style="font-size:13px;">Completed follow-up 110<br>Lost to follow-up 5</div>
+            <div class="consort-arrow">↓</div>
+            <div class="consort-box">Analyzed (n=115, ITT)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">prisma-flow</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>PRISMA 2020 Flow Diagram</h2>
+      <div class="prisma">
+        <div class="prisma-row">
+          <div class="prisma-box">Database records<br><span class="num">n = 2,840</span></div>
+          <div style="width:20px;"></div>
+          <div class="prisma-box">Other sources<br><span class="num">n = 45</span></div>
+        </div>
+        <div class="prisma-arrow">↓</div>
+        <div class="prisma-row">
+          <div class="prisma-box">Records after duplicates removed<br><span class="num">n = 1,620</span></div>
+          <div class="consort-side-arrow">→</div>
+          <div class="prisma-box excluded">Duplicates removed n=1,265</div>
+        </div>
+        <div class="prisma-arrow">↓</div>
+        <div class="prisma-row">
+          <div class="prisma-box">Titles and abstracts screened<br><span class="num">n = 284</span></div>
+          <div class="consort-side-arrow">→</div>
+          <div class="prisma-box excluded">Excluded n=1,336</div>
+        </div>
+        <div class="prisma-arrow">↓</div>
+        <div class="prisma-row">
+          <div class="prisma-box">Full-text reports assessed<br><span class="num">n = 68</span></div>
+          <div class="consort-side-arrow">→</div>
+          <div class="prisma-box excluded">Excluded n=216<br><span style="font-size:13px;">Wrong population 124 / Wrong intervention 92</span></div>
+        </div>
+        <div class="prisma-arrow">↓</div>
+        <div class="prisma-box" style="border-color:#1a5fb4;border-width:3px;">Studies included<br><span class="num">n = 24</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">forest-plot</span>
+    <div class="body">
+      <h2>Forest Plot: Subgroup Analysis of the Primary Outcome</h2>
+      <div class="forest-plot">
+        <div class="forest-row header">
+          <div>Subgroup</div>
+          <div style="text-align:center;font-size:13px;">← Favors intervention &nbsp;&nbsp; | &nbsp;&nbsp; Favors control →</div>
+          <div style="text-align:right;">HR (95% CI)</div>
+        </div>
+        <div class="forest-row">
+          <div class="forest-label">Overall</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:28%;width:24%;"></div>
+            <div class="forest-point" style="left:38%;"></div>
+          </div>
+          <div class="forest-hr">0.62 (0.48-0.81)</div>
+        </div>
+        <div class="forest-row">
+          <div class="forest-label">Male</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:24%;width:22%;"></div>
+            <div class="forest-point" style="left:34%;"></div>
+          </div>
+          <div class="forest-hr">0.58 (0.42-0.78)</div>
+        </div>
+        <div class="forest-row">
+          <div class="forest-label">Female</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:32%;width:26%;"></div>
+            <div class="forest-point" style="left:42%;"></div>
+          </div>
+          <div class="forest-hr">0.67 (0.50-0.89)</div>
+        </div>
+        <div class="forest-row">
+          <div class="forest-label">Age 0–3 years</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:22%;width:20%;"></div>
+            <div class="forest-point" style="left:30%;"></div>
+          </div>
+          <div class="forest-hr">0.55 (0.39-0.74)</div>
+        </div>
+        <div class="forest-row">
+          <div class="forest-label">Age 3–6 years</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:36%;width:24%;"></div>
+            <div class="forest-point" style="left:45%;"></div>
+          </div>
+          <div class="forest-hr">0.70 (0.52-0.94)</div>
+        </div>
+        <div class="forest-row">
+          <div class="forest-label">Comorbidity</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:38%;width:28%;"></div>
+            <div class="forest-point" style="left:48%;"></div>
+          </div>
+          <div class="forest-hr">0.73 (0.51-1.05)</div>
+        </div>
+        <div class="forest-row overall">
+          <div class="forest-label">Pooled effect</div>
+          <div class="forest-bar-area">
+            <div class="forest-line"></div>
+            <div class="forest-ci" style="left:28%;width:24%;"></div>
+            <div class="forest-point diamond" style="left:38%;"></div>
+          </div>
+          <div class="forest-hr">0.62 (0.48-0.81)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">kaplan-meier</span>
+    <div class="body">
+      <h2>Kaplan–Meier Survival Curve</h2>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+        <canvas id="chartKM" style="max-height:380px;"></canvas>
+      </div>
+      <p class="muted" style="font-size:13px;text-align:center;">Log-rank test: p = 0.003 &nbsp;|&nbsp; HR 0.62 (95% CI: 0.48-0.81)</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">roc-curve</span>
+    <div class="body">
+      <h2>ROC Curve: Performance of an AI Diagnostic Model</h2>
+      <div class="cols-2" style="align-items:center;">
+        <div>
+          <canvas id="chartROC" style="max-height:320px;"></canvas>
+        </div>
+        <div>
+          <h3 class="accent" style="font-size:16px;">Diagnostic Performance</h3>
+          <div style="margin-top:12px;">
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #dde3ea;font-size:15px;">
+              <span style="font-weight:700;">AUC</span><span class="accent" style="font-weight:700;">0.94</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #dde3ea;font-size:15px;">
+              <span style="font-weight:700;">Sensitivity</span><span>93.2%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #dde3ea;font-size:15px;">
+              <span style="font-weight:700;">Specificity</span><span>89.0%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:15px;">
+              <span style="font-weight:700;">Cutoff</span><span>0.65</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">evidence-pyramid</span>
+    <div class="body">
+      <h2>Evidence Pyramid</h2>
+      <div class="pyramid">
+        <div class="pyramid-level"><h3>Meta-analysis / Systematic Review</h3></div>
+        <div class="pyramid-level"><h3>Randomized Controlled Trial</h3></div>
+        <div class="pyramid-level"><h3>Cohort / Case-control / Cross-sectional / Case Report</h3></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">section-break</span>
+    <h2>Journal Club Templates</h2>
+    <p>Journal Club Templates</p>
+  </section>
+
+
+
+
+
+
+  <section class="slide slide-content">
+    <span class="template-label">bibliography-card</span>
+    <div class="body">
+      <h2>Article at a Glance</h2>
+      <div class="bib-card">
+        <div class="bib-journal">The Lancet Digital Health</div>
+        <div class="bib-title">Machine learning-based triage in pediatric emergency departments: a multicenter randomized controlled trial</div>
+        <div class="bib-authors">Smith JA, Tanaka H, Johnson M, et al.</div>
+        <div class="bib-meta">
+          <div class="bib-meta-item"><span class="bib-meta-label">Year</span> 2025</div>
+          <div class="bib-meta-item"><span class="bib-meta-label">IF</span> 36.6</div>
+          <div class="bib-meta-item"><span class="bib-meta-label">DOI</span> 10.1016/S2589-7500</div>
+          <div class="bib-meta-item"><span class="bib-meta-label">Design</span> Multi-center RCT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">pico-table</span>
+    <div class="body">
+      <h2>PICO</h2>
+      <div class="pico-grid">
+        <div class="pico-cell">
+          <div class="pico-letter">P</div>
+          <h4>Patient / Population</h4>
+          <p>Pediatric emergency department patients<br>(1 month to 15 years)</p>
+        </div>
+        <div class="pico-cell">
+          <div class="pico-letter">I</div>
+          <h4>Intervention</h4>
+          <p>AI-assisted triage system<br>for acuity assessment</p>
+        </div>
+        <div class="pico-cell">
+          <div class="pico-letter">C</div>
+          <h4>Comparison</h4>
+          <p>Conventional nurse-led<br>JTAS triage</p>
+        </div>
+        <div class="pico-cell">
+          <div class="pico-letter">O</div>
+          <h4>Outcome</h4>
+          <p>Under-triage rate<br>(primary) / Waiting time (secondary)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">risk-of-bias (RoB 2)</span>
+    <div class="body">
+      <h2>Risk of Bias Assessment (RoB 2)</h2>
+      <table class="rob-table">
+        <tr>
+          <th>Domain</th>
+          <th>Judgment</th>
+          <th>Rationale</th>
+        </tr>
+        <tr>
+          <td>D1: Randomization process</td>
+          <td><span class="rob-light rob-low">L</span></td>
+          <td>Computer-generated sequence; central allocation</td>
+        </tr>
+        <tr>
+          <td>D2: Deviations from intended interventions</td>
+          <td><span class="rob-light rob-some">S</span></td>
+          <td>Participants could not be blinded because the AI system was visible</td>
+        </tr>
+        <tr>
+          <td>D3: Missing outcome data</td>
+          <td><span class="rob-light rob-low">L</span></td>
+          <td>5% attrition; intention-to-treat analysis performed</td>
+        </tr>
+        <tr>
+          <td>D4: Measurement of the outcome</td>
+          <td><span class="rob-light rob-low">L</span></td>
+          <td>Objective outcomes (admission and ICU transfer)</td>
+        </tr>
+        <tr>
+          <td>D5: Selection of the reported result</td>
+          <td><span class="rob-light rob-low">L</span></td>
+          <td>Protocol prospectively registered (UMIN)</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">Overall</td>
+          <td><span class="rob-light rob-some">S</span></td>
+          <td style="font-weight:600;">Some concerns (D2 only)</td>
+        </tr>
+      </table>
+      <p class="muted" style="font-size:13px;margin-top:8px;">L = Low risk &nbsp; S = Some concerns &nbsp; H = High risk</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">grade-assessment</span>
+    <div class="body">
+      <h2>GRADE Evidence Profile</h2>
+      <table class="grade-table">
+        <tr>
+          <th>Assessment</th>
+          <th>Rating</th>
+          <th>Rationale</th>
+        </tr>
+        <tr>
+          <td>Risk of bias</td>
+          <td>Not downgraded</td>
+          <td>Low risk overall</td>
+        </tr>
+        <tr>
+          <td>Inconsistency</td>
+          <td>Not downgraded</td>
+          <td>I²=18%; consistent direction of effect</td>
+        </tr>
+        <tr>
+          <td>Indirectness</td>
+          <td style="color:#f59e0b;font-weight:700;">−1</td>
+          <td>Single-country study (Japan)</td>
+        </tr>
+        <tr>
+          <td>Imprecision</td>
+          <td>Not downgraded</td>
+          <td>Optimal information size met; narrow CI</td>
+        </tr>
+        <tr>
+          <td>Publication bias</td>
+          <td>Not downgraded</td>
+          <td>Symmetric funnel plot</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;font-size:15px;">Certainty of evidence</td>
+          <td colspan="2"><span class="grade-badge grade-mod">MODERATE ⊕⊕⊕◯</span></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">strengths-limitations</span>
+    <div class="body">
+      <h2>Internal Validity: Strengths and Limitations</h2>
+      <div class="sl-grid">
+        <div class="sl-col strengths">
+          <h3>Strengths</h3>
+          <ul style="list-style:none;padding:0;">
+            <li>Adequately powered multicenter RCT (8 sites)</li>
+            <li>Prospectively registered protocol</li>
+            <li>Both intention-to-treat and per-protocol analyses</li>
+            <li>Low attrition rate (5%)</li>
+          </ul>
+        </div>
+        <div class="sl-col limitations">
+          <h3>Limitations</h3>
+          <ul style="list-style:none;padding:0;">
+            <li>Participants could not be blinded</li>
+            <li>Conducted only in Japan (limited generalizability)</li>
+            <li>No long-term follow-up (28 days only)</li>
+            <li>No cost-effectiveness analysis</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">discussion-points</span>
+    <div class="body">
+      <h2>Discussion Points</h2>
+      <div class="discussion-points">
+        <div class="discussion-point">
+          <div class="dp-num">QUESTION 01</div>
+          <p>What barriers would we anticipate when implementing this AI model at our institution?</p>
+        </div>
+        <div class="discussion-point">
+          <div class="dp-num">QUESTION 02</div>
+          <p>How can bias be minimized in an interventional study where blinding is difficult?</p>
+        </div>
+        <div class="discussion-point">
+          <div class="dp-num">QUESTION 03</div>
+          <p>Is an NNT of 8 clinically meaningful in this setting?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">structured-abstract</span>
+    <div class="body">
+      <h2>Structured Abstract</h2>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:720px;">
+        <div style="background:#fff;border:1px solid #dde3ea;border-left:4px solid #1a5fb4;border-radius:0 10px 10px 0;padding:16px 20px;">
+          <h3 style="font-size:13px;font-weight:700;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Background</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Under-triage in pediatric emergency departments can lead to serious adverse outcomes. Evidence supporting AI-assisted triage remains limited.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #dde3ea;border-left:4px solid #1a5fb4;border-radius:0 10px 10px 0;padding:16px 20px;">
+          <h3 style="font-size:13px;font-weight:700;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Methods</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Parallel-group RCT conducted at eight sites in Japan. We randomized 235 pediatric emergency department patients aged 1 month to 15 years to AI-assisted triage (n=120) or conventional triage (n=115).</p>
+        </div>
+        <div style="background:#fff;border:1px solid #dde3ea;border-left:4px solid #1a5fb4;border-radius:0 10px 10px 0;padding:16px 20px;">
+          <h3 style="font-size:13px;font-weight:700;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Results</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">The primary outcome, under-triage, occurred in 7.7% of the AI group versus 12.4% of controls (risk difference −4.7%, 95% CI −7.8 to −1.6; p=0.003). Emergency department length of stay was also shorter (1.9 vs 3.2 h; p<0.001).</p>
+        </div>
+        <div style="background:#fff;border:1px solid #dde3ea;border-left:4px solid #1a5fb4;border-radius:0 10px 10px 0;padding:16px 20px;">
+          <h3 style="font-size:13px;font-weight:700;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">Conclusions</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">AI-assisted triage significantly reduced under-triage and may improve safety in pediatric emergency care. International multicenter studies are needed to assess generalizability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">clinical-bottom-line</span>
+    <h2>With AI-assisted triage<br>NNT = <span class="accent">8</span> patients prevents one<br>under-triage event</h2>
+    <div style="margin-top:32px;max-width:560px;">
+      <div class="highlight-box">
+        <p style="font-size:16px;font-weight:400;">Practice tomorrow: The largest benefit was seen in JTAS level 2 (emergent) patients. A practical first step may be decision support for overnight triage.</p>
+      </div>
+      <div style="display:flex;gap:24px;justify-content:center;margin-top:20px;font-size:16px;color:#5c6470;">
+        <span>NNT 8</span>
+        <span>NNH 38</span>
+        <span>ARR 4.7%</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">casp-checklist</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>CASP Checklist (RCT)</h2>
+      <div class="cols-2" style="gap:16px;">
+        <ul class="checklist" style="font-size:14px;line-height:1.6;">
+          <li class="checked">Was the research question clearly focused?</li>
+          <li class="checked">Was randomization performed appropriately?</li>
+          <li>Were participants, clinicians, and assessors blinded?</li>
+          <li class="checked">Were the groups similar at baseline?</li>
+          <li class="checked">Were all randomized patients included in the ITT analysis?</li>
+          <li class="checked">Were the groups treated equally apart from the intervention?</li>
+        </ul>
+        <ul class="checklist" style="font-size:14px;line-height:1.6;">
+          <li class="checked">How large was the treatment effect?</li>
+          <li class="checked">How precise was the estimate (CI)?</li>
+          <li class="checked">Can the results be applied to our patients?</li>
+          <li class="checked">Were all clinically important outcomes considered?</li>
+          <li>Are the benefits worth the harms and costs?</li>
+        </ul>
+      </div>
+      <p class="muted" style="font-size:13px;">9 of 11 criteria met. Blinding and quantitative assessment of harms remain limitations.</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">evidence-summary</span>
+    <div class="body">
+      <h2>Evidence Summary</h2>
+      <table class="table1" style="font-size:14px;">
+        <tr>
+          <th>Study</th>
+          <th>Design</th>
+          <th>n</th>
+          <th>Key result</th>
+          <th>Quality of evidence</th>
+        </tr>
+        <tr>
+          <td>Smith 2025</td>
+          <td style="text-align:center;">Multicenter RCT</td>
+          <td style="text-align:center;">235</td>
+          <td style="text-align:center;">38% relative reduction in under-triage<br>(RD -4.7%, p=0.003)</td>
+          <td style="text-align:center;"><span class="grade-badge grade-mod">MODERATE</span></td>
+        </tr>
+        <tr>
+          <td>Tanaka 2024</td>
+          <td style="text-align:center;">Before–after study</td>
+          <td style="text-align:center;">1,240</td>
+          <td style="text-align:center;">42% reduction in ED length of stay<br>(3.4h→2.0h)</td>
+          <td style="text-align:center;"><span class="grade-badge grade-low">LOW</span></td>
+        </tr>
+        <tr>
+          <td>Johnson 2024</td>
+          <td style="text-align:center;">SR/MA</td>
+          <td style="text-align:center;">12 studies<br>(8,450)</td>
+          <td style="text-align:center;">Sensitivity 0.91; specificity 0.87<br>(AUC 0.93)</td>
+          <td style="text-align:center;"><span class="grade-badge grade-mod">MODERATE</span></td>
+        </tr>
+        <tr>
+          <td>Lee 2023</td>
+          <td style="text-align:center;">Single-center RCT</td>
+          <td style="text-align:center;">180</td>
+          <td style="text-align:center;">No significant difference<br>(RD -2.1%, p=0.18)</td>
+          <td style="text-align:center;"><span class="grade-badge grade-low">LOW</span></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">section-break</span>
+    <h2>Case Conference Templates</h2>
+    <p>Case Report Templates</p>
+  </section>
+
+
+
+
+
+
+  <section class="slide slide-content">
+    <span class="template-label">patient-info</span>
+    <div class="body">
+      <h2>Case Presentation</h2>
+      <div class="cols-2">
+        <div>
+          <ul class="list" style="font-size:18px;line-height:2.2;">
+            <li><strong>Age / sex:</strong> 2-year-6-month-old boy</li>
+            <li><strong>Chief concern:</strong> Fever and irritability</li>
+            <li><strong>Referral:</strong> Referred for persistent fever for 3 days despite antibiotics prescribed at a local clinic</li>
+          </ul>
+        </div>
+        <div>
+          <div class="highlight-box">
+            <p style="font-size:16px;">Privacy: This case is anonymized and presented with consent from the patient and family</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">present-illness</span>
+    <div class="body">
+      <h2>History of Present Illness</h2>
+      <div class="timeline">
+        <div class="timeline-item"><h3>3 days before admission</h3><p>Fever to 38.5°C, mild irritability, and decreased appetite developed.</p></div>
+        <div class="timeline-item"><h3>2 days before admission</h3><p>Seen at a local clinic; pharyngeal erythema noted and amoxicillin prescribed. Fever rose to 39.2°C overnight.</p></div>
+        <div class="timeline-item"><h3>1 day before admission</h3><p>Fever above 38°C persisted despite antipyretics. Irritability worsened with increasing lethargy.</p></div>
+        <div class="timeline-item"><h3>Day of admission</h3><p>Returned to the clinic and was referred to our hospital for an elevated CRP of 14.2 mg/dL.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">past-history</span>
+    <div class="body">
+      <h2>Medical, Family, and Medication History</h2>
+      <div class="bullets-horizontal">
+        <div class="bullet-item">
+          <h3>Medical history</h3>
+          <p>Uncomplicated perinatal course (39 weeks, vaginal delivery, 3,120 g). One febrile seizure at 20 months. No previous admissions. Routine immunizations complete.</p>
+        </div>
+        <div class="bullet-item">
+          <h3>Family history</h3>
+          <p>Father healthy. Mother has asthma. One healthy 5-year-old sister. No autoimmune disease in the grandparents.</p>
+        </div>
+        <div class="bullet-item">
+          <h3>Medications and allergies</h3>
+          <p>No regular medications. Taking amoxicillin for 3 days from the referring clinic. No known drug or food allergies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">physical-exam</span>
+    <div class="body">
+      <h2>Physical Examination</h2>
+      <div class="cols-2">
+        <div>
+          <h3 style="font-size:16px;color:#5c6470;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">General</h3>
+          <ul class="list" style="font-size:16px;line-height:1.9;">
+            <li>General appearance: irritable but alert</li>
+            <li>Nutritional status: well nourished</li>
+            <li>Skin: no rash; normal turgor</li>
+            <li>Lymph nodes: tender 1.5-cm right cervical node</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#5c6470;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Systemic examination</h3>
+          <ul class="list" style="font-size:16px;line-height:1.9;">
+            <li>Head and neck: pharyngeal erythema (+), conjunctival injection (−), nuchal rigidity (−)</li>
+            <li>Chest: clear breath sounds; no murmur</li>
+            <li>Abdomen: flat, soft, nontender; no hepatosplenomegaly</li>
+            <li>Extremities: no edema; capillary refill ≤2 s</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">vital-signs</span>
+    <div class="body">
+      <h2>Vital Signs at Presentation</h2>
+      <div class="vitals-grid">
+        <div class="vital-card">
+          <div class="vital-label">Temperature</div>
+          <div class="vital-value vital-abnormal">39.2</div>
+          <div class="vital-unit">℃</div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">Heart rate</div>
+          <div class="vital-value vital-abnormal">142</div>
+          <div class="vital-unit">bpm</div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">Respiratory rate</div>
+          <div class="vital-value vital-abnormal">36</div>
+          <div class="vital-unit">/min</div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">Blood pressure</div>
+          <div class="vital-value vital-normal">98/62</div>
+          <div class="vital-unit">mmHg</div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">SpO2</div>
+          <div class="vital-value vital-normal">97</div>
+          <div class="vital-unit">% (Room Air)</div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">GCS</div>
+          <div class="vital-value vital-normal">15</div>
+          <div class="vital-unit">E4V5M6</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">lab-results</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>Laboratory Results</h2>
+      <div class="cols-2">
+        <div>
+          <table class="lab-table">
+            <tr><th colspan="3">Hematology</th></tr>
+            <tr><td>WBC</td><td class="lab-high">18,200 /μL</td><td class="lab-ref">3,500-9,500</td></tr>
+            <tr><td>Hb</td><td>12.8 g/dL</td><td class="lab-ref">11.0-16.0</td></tr>
+            <tr><td>Plt</td><td class="lab-low">82,000/μL</td><td class="lab-ref">15.0-40.0</td></tr>
+            <tr><th colspan="3">Chemistry</th></tr>
+            <tr><td>CRP</td><td class="lab-high">14.2 mg/dL</td><td class="lab-ref">&lt;0.3</td></tr>
+            <tr><td>PCT</td><td class="lab-high">3.8 ng/mL</td><td class="lab-ref">&lt;0.5</td></tr>
+            <tr><td>AST</td><td>28 U/L</td><td class="lab-ref">10-40</td></tr>
+            <tr><td>ALT</td><td>22 U/L</td><td class="lab-ref">5-45</td></tr>
+          </table>
+        </div>
+        <div>
+          <table class="lab-table">
+            <tr><th colspan="3">Coagulation</th></tr>
+            <tr><td>PT-INR</td><td class="lab-high">1.42</td><td class="lab-ref">0.85-1.15</td></tr>
+            <tr><td>APTT</td><td class="lab-high">42.8 sec</td><td class="lab-ref">24-36</td></tr>
+            <tr><td>Fib</td><td class="lab-low">128 mg/dL</td><td class="lab-ref">200-400</td></tr>
+            <tr><th colspan="3">Venous blood gas</th></tr>
+            <tr><td>pH</td><td class="lab-low">7.28</td><td class="lab-ref">7.35-7.45</td></tr>
+            <tr><td>BE</td><td class="lab-low">-6.2 mEq/L</td><td class="lab-ref">-2 to +2</td></tr>
+            <tr><td>Lac</td><td class="lab-high">4.8 mmol/L</td><td class="lab-ref">&lt;2.0</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">differential-diagnosis</span>
+    <div class="body">
+      <h2>Differential Diagnosis</h2>
+      <table class="ddx-table">
+        <tr>
+          <th>Diagnosis</th>
+          <th>Supporting findings</th>
+          <th>Findings against</th>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">Bacterial meningitis</td>
+          <td class="ddx-for">High fever, leukocytosis, elevated CRP, nuchal rigidity</td>
+          <td class="ddx-against">Normal CSF</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">Kawasaki disease</td>
+          <td class="ddx-for">Fever ≥5 days; cervical lymphadenopathy</td>
+          <td class="ddx-against">No conjunctival injection or rash</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">Urinary tract infection</td>
+          <td class="ddx-for">Young child, fever, leukocytosis</td>
+          <td class="ddx-against">Normal urinalysis</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:#1a5fb4;">★ Sepsis</td>
+          <td class="ddx-for">High fever, tachycardia, elevated PCT and lactate, coagulopathy</td>
+          <td class="ddx-against">—</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">clinical-course</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>Clinical Course</h2>
+      <div class="clinical-course">
+        <div class="cc-timeline">
+          <div class="cc-day">Day 1</div>
+          <div class="cc-day">Day 2</div>
+          <div class="cc-day">Day 3</div>
+          <div class="cc-day">Day 5</div>
+          <div class="cc-day">Day 7</div>
+          <div class="cc-day">Day 10</div>
+          <div class="cc-day">Day 14</div>
+        </div>
+        <div class="cc-section">
+          <div class="cc-section-label">Temperature (°C)</div>
+          <div style="display:flex;height:60px;align-items:flex-end;">
+            <canvas id="chartCourse" style="width:100%;height:60px;"></canvas>
+          </div>
+        </div>
+        <div class="cc-section">
+          <div class="cc-section-label">Medications</div>
+          <div class="cc-drug-row">
+            <div class="cc-drug-name">MEPM</div>
+            <div class="cc-drug-bar-area">
+              <div class="cc-drug-bar" style="width:71%;background:#1a5fb4;">120mg/kg/day</div>
+            </div>
+          </div>
+          <div class="cc-drug-row">
+            <div class="cc-drug-name">VCM</div>
+            <div class="cc-drug-bar-area">
+              <div class="cc-drug-bar" style="width:43%;background:#6b7280;">60mg/kg/day</div>
+            </div>
+          </div>
+          <div class="cc-drug-row">
+            <div class="cc-drug-name">ABPC</div>
+            <div class="cc-drug-bar-area">
+              <div style="width:43%;"></div>
+              <div class="cc-drug-bar" style="width:43%;background:#5c6470;">200mg/kg/day</div>
+            </div>
+          </div>
+        </div>
+        <div class="cc-section">
+          <div class="cc-section-label">Events</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:13px;color:#16191f;">
+            <span><span class="cc-event-marker" style="display:inline-block;vertical-align:middle;"></span> Day 1 Admission; blood cultures obtained</span>
+            <span><span class="cc-event-marker" style="display:inline-block;vertical-align:middle;"></span> Day 2 Blood culture positive (GBS)</span>
+            <span><span class="cc-event-marker" style="display:inline-block;vertical-align:middle;"></span> Day 3 Susceptibilities available → de-escalation</span>
+            <span><span class="cc-event-marker" style="display:inline-block;vertical-align:middle;"></span> Day 14 Discharged</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">image-annotation</span>
+    <div class="body">
+      <h2>Imaging Findings</h2>
+      <div class="cols-2" style="align-items:center;">
+        <div style="background:#f0ede8;border-radius:2px;height:280px;display:flex;align-items:center;justify-content:center;position:relative;">
+          <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+            <rect x="20" y="20" width="160" height="160" rx="8" stroke="#5c6470" stroke-width="1" stroke-dasharray="4 2"/>
+            <text x="100" y="100" text-anchor="middle" fill="#5c6470" font-size="14" font-family="Inter">CT / MRI / Radiograph</text>
+            <text x="100" y="120" text-anchor="middle" fill="#5c6470" font-size="12" font-family="Inter">Place image here</text>
+            <circle cx="130" cy="80" r="20" stroke="#1a5fb4" stroke-width="2" fill="none"/>
+            <line x1="148" y1="72" x2="175" y2="55" stroke="#1a5fb4" stroke-width="1.5"/>
+          </svg>
+          <div style="position:absolute;right:12px;top:12px;background:#1a5fb4;color:#fff;font-size:13px;font-weight:700;padding:3px 8px;border-radius:4px;">Arrow</div>
+        </div>
+        <div>
+          <h3 style="font-size:16px;">Findings</h3>
+          <ul class="list" style="font-size:15px;">
+            <li>Right lower-lung air-space opacity</li>
+            <li>No pleural effusion</li>
+            <li>No cardiomegaly (CTR 48%)</li>
+          </ul>
+          <div class="highlight-box" style="margin-top:16px;">
+            <p style="font-size:14px;">Acquisition: contrast-enhanced chest CT, 5-mm slices</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">problem-list</span>
+    <div class="body">
+      <h2>Problem List</h2>
+      <div class="cols-2">
+        <div>
+          <h3 style="font-size:14px;font-weight:700;color:#dc2626;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #dc2626;">Active Problems</h3>
+          <ol class="list" style="font-size:15px;line-height:2;">
+            <li>Sepsis (GBS bacteremia) — Day 1 onward</li>
+            <li>Disseminated intravascular coagulation — Day 1 onward</li>
+            <li>Thrombocytopenia (platelets 82,000/μL) — Day 1 onward</li>
+            <li>Metabolic acidosis (pH 7.28, BE −6.2) — Day 1 onward</li>
+            <li>Fever (39.2°C) — Day 1 onward</li>
+          </ol>
+        </div>
+        <div>
+          <h3 style="font-size:14px;font-weight:700;color:#5c6470;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #5c6470;">Inactive / Past Problems</h3>
+          <ol class="list" style="font-size:15px;line-height:2;">
+            <li>Asthma — diagnosed at age 2; currently in remission</li>
+            <li>Febrile seizure — one simple episode at 18 months</li>
+            <li>Atopic dermatitis — mild; topical therapy only</li>
+            <li>Right inguinal hernia — repaired at age 3</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">medication-timeline</span>
+    <div class="body">
+      <h2>Medication Timeline</h2>
+      <div class="gantt" style="gap:6px;">
+        <div class="gantt-row"><div class="gantt-label">MEPM</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:50%;background:#1a5fb4;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">VCM</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:36%;background:#1a5fb4;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">ABPC</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:36%;width:50%;background:#6b7280;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Normal saline + KCl</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:21%;background:#dde3ea;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Recombinant thrombomodulin</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:43%;background:#5c6470;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Acetaminophen</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:14%;background:#b0afa8;border-radius:4px;opacity:.6;"></div><div class="gantt-bar" style="left:21%;width:7%;background:#b0afa8;border-radius:4px;opacity:.6;"></div></div></div>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:12px;font-size:13px;color:#5c6470;">
+        <span><span style="display:inline-block;width:12px;height:12px;background:#1a5fb4;border-radius:3px;vertical-align:middle;margin-right:4px;"></span>Antibiotics (broad spectrum)</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:#6b7280;border-radius:3px;vertical-align:middle;margin-right:4px;"></span>Antibiotics (after de-escalation)</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:#dde3ea;border-radius:3px;vertical-align:middle;margin-right:4px;"></span>IV fluids</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:#5c6470;border-radius:3px;vertical-align:middle;margin-right:4px;"></span>Anticoagulant</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">confusion-matrix</span>
+    <div class="body">
+      <h2>Diagnostic Performance: 2 × 2 Table</h2>
+      <div class="cols-2" style="align-items:flex-start;">
+        <div>
+          <table class="table1" style="max-width:360px;">
+            <tr><th></th><th style="text-align:center;">Disease present</th><th style="text-align:center;">Disease absent</th></tr>
+            <tr>
+              <td>Test positive</td>
+              <td style="text-align:center;background:rgba(26,95,180,.1);font-weight:700;color:#1a5fb4;">TP: 112</td>
+              <td style="text-align:center;">FP: 14</td>
+            </tr>
+            <tr>
+              <td>Test negative</td>
+              <td style="text-align:center;">FN: 8</td>
+              <td style="text-align:center;background:rgba(26,95,180,.1);font-weight:700;color:#1a5fb4;">TN: 101</td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <table class="table1" style="max-width:340px;">
+            <tr><th>Measure</th><th style="text-align:center;">Value</th><th style="text-align:center;">95% CI</th></tr>
+            <tr><td>Sensitivity</td><td style="text-align:center;font-weight:700;color:#1a5fb4;">93.3%</td><td style="text-align:center;">87.3-97.1</td></tr>
+            <tr><td>Specificity</td><td style="text-align:center;font-weight:700;color:#1a5fb4;">87.8%</td><td style="text-align:center;">80.7-93.0</td></tr>
+            <tr><td>Positive predictive value</td><td style="text-align:center;">88.9%</td><td style="text-align:center;">82.1-93.7</td></tr>
+            <tr><td>Negative predictive value</td><td style="text-align:center;">92.7%</td><td style="text-align:center;">86.1-96.8</td></tr>
+            <tr><td>Positive likelihood ratio</td><td style="text-align:center;">7.65</td><td style="text-align:center;">4.6-12.7</td></tr>
+            <tr><td>Negative likelihood ratio</td><td style="text-align:center;">0.08</td><td style="text-align:center;">0.04-0.15</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">ventilator-settings</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>Ventilator Settings Over Time</h2>
+      <div style="font-size:14px;">
+        <div style="display:flex;border-bottom:2px solid #dde3ea;padding-bottom:4px;margin-bottom:8px;">
+          <div style="min-width:90px;font-weight:700;color:#5c6470;">Parameter</div>
+          <div style="flex:1;display:flex;text-align:center;font-weight:700;color:#16191f;">
+            <div style="flex:1;">Day 1</div><div style="flex:1;">Day 2</div><div style="flex:1;">Day 3</div><div style="flex:1;">Day 5</div><div style="flex:1;">Day 7</div><div style="flex:1;">Day 10</div>
+          </div>
+        </div>
+        <div style="display:flex;padding:6px 0;border-bottom:1px solid #dde3ea;">
+          <div style="min-width:90px;font-weight:600;">Mode</div>
+          <div style="flex:1;display:flex;text-align:center;color:#16191f;">
+            <div style="flex:1;">SIMV+PS</div><div style="flex:1;">SIMV+PS</div><div style="flex:1;">CPAP+PS</div><div style="flex:1;">CPAP+PS</div><div style="flex:1;">HFNC</div><div style="flex:1;color:#059669;font-weight:700;">Room Air</div>
+          </div>
+        </div>
+        <div style="display:flex;padding:6px 0;border-bottom:1px solid #dde3ea;">
+          <div style="min-width:90px;font-weight:600;">FiO2</div>
+          <div style="flex:1;display:flex;text-align:center;color:#16191f;">
+            <div style="flex:1;color:#dc2626;font-weight:700;">0.60</div><div style="flex:1;color:#1a5fb4;">0.45</div><div style="flex:1;">0.35</div><div style="flex:1;">0.30</div><div style="flex:1;">0.25</div><div style="flex:1;color:#059669;font-weight:700;">0.21</div>
+          </div>
+        </div>
+        <div style="display:flex;padding:6px 0;border-bottom:1px solid #dde3ea;">
+          <div style="min-width:90px;font-weight:600;">PEEP</div>
+          <div style="flex:1;display:flex;text-align:center;color:#16191f;">
+            <div style="flex:1;color:#dc2626;font-weight:700;">8</div><div style="flex:1;color:#1a5fb4;">7</div><div style="flex:1;">6</div><div style="flex:1;">5</div><div style="flex:1;">—</div><div style="flex:1;">—</div>
+          </div>
+        </div>
+        <div style="display:flex;padding:6px 0;border-bottom:1px solid #dde3ea;">
+          <div style="min-width:90px;font-weight:600;">P/F ratio</div>
+          <div style="flex:1;display:flex;text-align:center;color:#16191f;">
+            <div style="flex:1;color:#dc2626;font-weight:700;">142</div><div style="flex:1;color:#1a5fb4;">198</div><div style="flex:1;">265</div><div style="flex:1;">312</div><div style="flex:1;">380</div><div style="flex:1;color:#059669;font-weight:700;">420</div>
+          </div>
+        </div>
+        <div style="display:flex;padding:6px 0;">
+          <div style="min-width:90px;font-weight:600;">SpO2</div>
+          <div style="flex:1;display:flex;text-align:center;color:#16191f;">
+            <div style="flex:1;">92%</div><div style="flex:1;">94%</div><div style="flex:1;">96%</div><div style="flex:1;">97%</div><div style="flex:1;">98%</div><div style="flex:1;">98%</div>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:8px;"><span style="color:#dc2626;">Red</span> = abnormal / <span style="color:#1a5fb4;">Orange</span> = caution / <span style="color:#059669;">Green</span> = normalized</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">take-home-message</span>
+    <h2>AI-assisted triage<br>reduced under-triage <span class="accent">38%</span> and improved<br>safety in the pediatric ED</h2>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">inclusion-exclusion</span>
+    <div class="body">
+      <h2>Eligibility Criteria</h2>
+      <div class="cols-2">
+        <div>
+          <h3 style="font-size:14px;font-weight:700;color:#059669;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #059669;">Inclusion Criteria</h3>
+          <ul class="list" style="font-size:15px;line-height:2;">
+            <li>Children aged 1 month to 15 years</li>
+            <li>JTAS triage level 2–4 at ED presentation</li>
+            <li>Written parental consent obtained</li>
+            <li>First visit to a participating site</li>
+            <li>Triage feasible within 30 minutes of arrival</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:14px;font-weight:700;color:#dc2626;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #dc2626;">Exclusion Criteria</h3>
+          <ul class="list" style="font-size:15px;line-height:2;">
+            <li>Cardiopulmonary arrest on arrival (triage level 1)</li>
+            <li>Return visit within 48 hours</li>
+            <li>Transferred after triage at another facility</li>
+            <li>Parent unable to understand the consent materials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">study-design</span>
+    <div class="body">
+      <h2>Study Design Overview</h2>
+      <div class="cols-2" style="align-items:center;">
+        <div>
+          <h3 style="font-size:16px;margin-bottom:12px;">Prospective Multicenter RCT</h3>
+          <ul class="list" style="font-size:15px;line-height:2;">
+            <li><strong>Design:</strong> Multicenter parallel-group randomized controlled trial</li>
+            <li><strong>Sites:</strong> 8 sites (4 university, 3 children's, 1 community hospital)</li>
+            <li><strong>Allocation:</strong> 1:1 central allocation, stratified by site and age</li>
+            <li><strong>Blinding:</strong> Outcome assessors blinded</li>
+            <li><strong>Enrollment:</strong> April 2024–March 2025</li>
+            <li><strong>Follow-up:</strong> 28 days</li>
+          </ul>
+        </div>
+        <div>
+          <div class="flow-vertical">
+            <div class="flow-v-step" style="padding:10px;font-size:13px;"><h3 style="font-size:14px;">Eligibility screening</h3></div>
+            <div class="flow-v-arrow">↓</div>
+            <div class="flow-v-step" style="padding:10px;font-size:13px;border-color:#1a5fb4;"><h3 style="font-size:14px;">Randomized (n=235)</h3></div>
+            <div class="flow-v-arrow">↓</div>
+            <div style="display:flex;gap:12px;width:100%;">
+              <div class="flow-v-step" style="flex:1;padding:8px;"><h3 style="font-size:13px;">AI group (n=120)</h3><p style="font-size:13px;">AI-assisted triage</p></div>
+              <div class="flow-v-step" style="flex:1;padding:8px;"><h3 style="font-size:13px;">Control (n=115)</h3><p style="font-size:13px;">Conventional triage</p></div>
+            </div>
+            <div class="flow-v-arrow">↓</div>
+            <div class="flow-v-step" style="padding:10px;font-size:13px;"><h3 style="font-size:14px;">28-day outcome assessment</h3></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">statistical-methods</span>
+    <div class="body">
+      <h2>Statistical Analysis</h2>
+      <div class="cols-3">
+        <div class="card" style="padding:24px;">
+          <h3 style="font-size:13px;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Primary analysis</h3>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">Intention-to-treat analysis</h4>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">All randomized patients were analyzed in their assigned groups. The primary outcome (under-triage) was evaluated using risk difference with a two-sided α of 0.05.</p>
+        </div>
+        <div class="card" style="padding:24px;">
+          <h3 style="font-size:13px;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Secondary analysis</h3>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">Logistic regression</h4>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Multivariable analysis of factors associated with under-triage, adjusted for age, arrival time, acuity, and site; ORs with 95% CIs reported.</p>
+        </div>
+        <div class="card" style="padding:24px;">
+          <h3 style="font-size:13px;color:#1a5fb4;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Sensitivity analysis</h3>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">Multiple imputation (MICE)</h4>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Missing data were multiply imputed (m=20); robustness was checked against complete-case analysis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">subgroup-table</span>
+    <div class="body">
+      <h2>Subgroup Analysis</h2>
+      <table class="table1">
+        <tr>
+          <th>Subgroup</th>
+          <th>n</th>
+          <th>HR</th>
+          <th>95% CI</th>
+          <th>p for interaction</th>
+        </tr>
+        <tr>
+          <td>Age < 3 years</td>
+          <td>98</td>
+          <td>0.55</td>
+          <td>0.39 - 0.74</td>
+          <td>0.12</td>
+        </tr>
+        <tr>
+          <td>Age ≥3 years</td>
+          <td>137</td>
+          <td>0.70</td>
+          <td>0.52 - 0.94</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Male</td>
+          <td>132</td>
+          <td>0.58</td>
+          <td>0.42 - 0.78</td>
+          <td>0.34</td>
+        </tr>
+        <tr>
+          <td>Female</td>
+          <td>103</td>
+          <td>0.67</td>
+          <td>0.50 - 0.89</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>JTAS level 2 (emergent)</td>
+          <td>45</td>
+          <td>0.48</td>
+          <td>0.30 - 0.76</td>
+          <td class="p-sig">0.04</td>
+        </tr>
+        <tr>
+          <td>JTAS level 3–4 (urgent / less urgent)</td>
+          <td>190</td>
+          <td>0.71</td>
+          <td>0.55 - 0.92</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Comorbidity</td>
+          <td>30</td>
+          <td>0.73</td>
+          <td>0.51 - 1.05</td>
+          <td>0.52</td>
+        </tr>
+        <tr>
+          <td>No comorbidity</td>
+          <td>205</td>
+          <td>0.60</td>
+          <td>0.46 - 0.79</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">outcome-summary</span>
+    <div class="body">
+      <h2>Outcome Summary</h2>
+      <table class="table1">
+        <tr>
+          <th>Outcome</th>
+          <th>Intervention (n=120)</th>
+          <th>Control (n=115)</th>
+          <th>Effect estimate</th>
+          <th>p value</th>
+        </tr>
+        <tr style="background:rgba(26,95,180,.06);">
+          <td style="color:#1a5fb4;">★ Under-triage rate (primary)</td>
+          <td style="text-align:center;">7.7%</td>
+          <td style="text-align:center;">12.4%</td>
+          <td style="text-align:center;font-weight:700;">RD -4.7%</td>
+          <td style="text-align:center;" class="p-sig">0.003</td>
+        </tr>
+        <tr>
+          <td>ED length of stay, h (mean)</td>
+          <td style="text-align:center;">1.9</td>
+          <td style="text-align:center;">3.2</td>
+          <td style="text-align:center;">MD -1.3h</td>
+          <td style="text-align:center;" class="p-sig"><0.001</td>
+        </tr>
+        <tr>
+          <td>Unplanned ICU admission</td>
+          <td style="text-align:center;">1.7%</td>
+          <td style="text-align:center;">4.3%</td>
+          <td style="text-align:center;">RD -2.6%</td>
+          <td style="text-align:center;">0.08</td>
+        </tr>
+        <tr>
+          <td>Over-triage rate</td>
+          <td style="text-align:center;">18.3%</td>
+          <td style="text-align:center;">15.7%</td>
+          <td style="text-align:center;">RD +2.6%</td>
+          <td style="text-align:center;">0.21</td>
+        </tr>
+        <tr>
+          <td>28-day mortality</td>
+          <td style="text-align:center;">0%</td>
+          <td style="text-align:center;">0.9%</td>
+          <td style="text-align:center;">—</td>
+          <td style="text-align:center;">0.49</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">acknowledgments</span>
+    <div class="body">
+      <h2>Acknowledgments & Funding</h2>
+      <div class="bullets-horizontal">
+        <div class="bullet-item">
+          <h3>Funding</h3>
+          <p>Funded by the Japan Agency for Medical Research and Development (AMED), grant JP24ek0109012</p>
+        </div>
+        <div class="bullet-item">
+          <h3>Collaborators</h3>
+          <p>Hanako Tanaka, MD (University of Tokyo)<br>Smith JA（Stanford University）<br>Johnson M（Harvard Medical School）<br>Taro Sato, MD (Osaka University)</p>
+        </div>
+        <div class="bullet-item">
+          <h3>Acknowledgments</h3>
+          <p>We thank the staff at all participating sites and the patients and families who made this study possible.</p>
+        </div>
+      </div>
+      <div class="highlight-box">
+        <p>COI disclosure: see slide 2  |  Ethics review: IRB-2024-0142</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">section-break</span>
+    <h2>General-purpose Templates</h2>
+    <p>General-Purpose Templates (for Medical Use)</p>
+  </section>
+
+
+
+
+
+
+  <section class="slide slide-content">
+    <span class="template-label">flow</span>
+    <div class="body">
+      <h2>Study Protocol Flow</h2>
+      <div class="flow">
+        <div class="flow-step"><h3>Screening</h3><p>Eligibility assessment</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><h3>Randomization</h3><p>1:1 central allocation</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><h3>Intervention</h3><p>12 weeks</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><h3>Analysis</h3><p>ITT</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">timeline</span>
+    <div class="body">
+      <h2>Study Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item"><h3>April 2024</h3><p>IRB approval and study launch</p></div>
+        <div class="timeline-item"><h3>October 2024</h3><p>Enrollment completed (n=235)</p></div>
+        <div class="timeline-item"><h3>April 2025</h3><p>Follow-up completed; database locked</p></div>
+        <div class="timeline-item"><h3>August 2025</h3><p>Analysis completed; manuscript submitted</p></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">gantt</span>
+    <div class="body">
+      <h2>Study Schedule</h2>
+      <div class="gantt">
+        <div class="gantt-row"><div class="gantt-label">Literature review</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:25%;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Protocol development</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:15%;width:20%;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Ethics review</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:30%;width:10%;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Data collection</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:38%;width:35%;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Statistical analysis</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:68%;width:15%;"></div></div></div>
+        <div class="gantt-row"><div class="gantt-label">Manuscript writing</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:78%;width:22%;"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">before-after</span>
+    <div class="body">
+      <h2>Workflow Before and After AI Implementation</h2>
+      <div class="before-after">
+        <div class="before">
+          <h3>Before</h3>
+          <p>Triage time: mean 8 min</p>
+          <p>Under-triage rate: 12.4%</p>
+          <p>ED length of stay: 3.2 h</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="after">
+          <h3>After</h3>
+          <p>Triage time: mean 3 min</p>
+          <p>Under-triage rate: 7.7%</p>
+          <p>ED length of stay: 1.9 h</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">stat</span>
+    <div class="body">
+      <h2>Key result</h2>
+      <div class="cols-3">
+        <div class="stat"><div class="number">0.62</div><div class="label">Hazard ratio</div></div>
+        <div class="stat"><div class="number">NNT 8</div><div class="label">Number needed to treat</div></div>
+        <div class="stat"><div class="number">p=.003</div><div class="label">Statistically significant</div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">references</span>
+    <div class="body">
+      <h2>References</h2>
+      <ul class="list" style="font-size:14px;line-height:2;">
+        <li>Smith JA, et al. <em>Lancet Digit Health</em>. 2025;8(3):e142-e151.</li>
+        <li>Tanaka H, et al. <em>Pediatrics</em>. 2024;153(4):e2024056.</li>
+        <li>Johnson M, et al. <em>JAMA Netw Open</em>. 2024;7(1):e2348912.</li>
+        <li>Sackett DL, et al. <em>BMJ</em>. 1996;312(7023):71-72.</li>
+        <li>Japan Pediatric Society. Clinical Guideline for AI-assisted Pediatric Care. 2025.</li>
+      </ul>
+    </div>
+  </section>
+
+
+
+
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">section-break</span>
+    <h2>Teaching and Education Templates</h2>
+    <p>Educational Lecture Templates</p>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">learning-objectives</span>
+    <div class="body">
+      <h2>Learning Objectives</h2>
+      <p style="font-size:15px;color:#5c6470;margin-bottom:20px;">By the end of this session, participants will be able to:</p>
+      <ol class="list" style="font-size:17px;line-height:2.2;counter-reset:lo;">
+        <li>Define pediatric febrile neutropenia (FN) and describe the initial approach</li>
+        <li>Use MASCC and CISNE tools to distinguish low- from high-risk disease</li>
+        <li>Justify empiric antibiotic selection using guideline recommendations</li>
+        <li>Identify low-risk patients who may be managed as outpatients</li>
+      </ol>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">key-definitions</span>
+    <div class="body">
+      <h2>Key Definitions</h2>
+      <div class="cols-2">
+        <div class="card" style="padding:20px;">
+          <h3 style="font-size:16px;color:#1a5fb4;margin-bottom:8px;">Febrile Neutropenia (FN)</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Absolute neutrophil count < <500/μL (or expected to fall to < <500/μL within 48 hours) with an axillary temperature ≥37.5°C.</p>
+        </div>
+        <div class="card" style="padding:20px;">
+          <h3 style="font-size:16px;color:#1a5fb4;margin-bottom:8px;">MASCC score</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Risk score developed by the Multinational Association for Supportive Care in Cancer. A score ≥21 indicates low risk (sensitivity 71%; specificity 68%).</p>
+        </div>
+        <div class="card" style="padding:20px;">
+          <h3 style="font-size:16px;color:#1a5fb4;margin-bottom:8px;">Empiric therapy</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">Broad-spectrum antibiotics are started before the pathogen is identified, then de-escalated according to culture results.</p>
+        </div>
+        <div class="card" style="padding:20px;">
+          <h3 style="font-size:16px;color:#1a5fb4;margin-bottom:8px;">Breakthrough Infection</h3>
+          <p style="font-size:14px;color:#16191f;line-height:1.7;">An infection that develops during prophylactic antibiotics, raising concern for resistant organisms and the need to modify therapy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">quiz</span>
+    <div class="body">
+      <h2>Question</h2>
+      <p style="font-size:15px;color:#16191f;line-height:1.8;margin-bottom:20px;">An 8-year-old boy receiving maintenance therapy for ALL has had fever to 38.5°C for 3 days. WBC is 800/μL (ANC 120/μL), CRP 8.2 mg/dL, and vital signs are stable. What is the most appropriate initial management?</p>
+      <div class="cols-2" style="gap:12px;">
+        <div class="card" style="padding:16px;border-color:#dde3ea;">
+          <p style="font-size:15px;margin:0;"><strong style="color:#5c6470;">A.</strong> Prescribe an oral cephalosporin and arrange outpatient follow-up</p>
+        </div>
+        <div class="card" style="padding:16px;border-color:#dde3ea;">
+          <p style="font-size:15px;margin:0;"><strong style="color:#5c6470;">B.</strong> Obtain blood cultures and observe with antipyretics only</p>
+        </div>
+        <div class="card" style="padding:16px;border-color:#1a5fb4;border-width:2px;">
+          <p style="font-size:15px;margin:0;"><strong style="color:#1a5fb4;">C.</strong> Obtain two sets of blood cultures, then start an IV broad-spectrum antipseudomonal antibiotic</p>
+        </div>
+        <div class="card" style="padding:16px;border-color:#dde3ea;">
+          <p style="font-size:15px;margin:0;"><strong style="color:#5c6470;">D.</strong> Give G-CSF alone and await neutrophil recovery</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">diagnostic-algorithm</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>Triage Algorithm for a Febrile Child</h2>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;font-size:15px;">
+        <div style="background:#fff;border:2px solid #1a5fb4;border-radius:2px;padding:10px 28px;text-align:center;font-weight:700;">Child presents with fever ≥38.0°C</div>
+        <div class="algo-arrow"></div>
+        <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:8px 24px;text-align:center;">
+          <strong>Assess general appearance (PAT)</strong><br><span style="color:#5c6470;font-size:14px;">Appearance, breathing, circulation</span>
+        </div>
+        <div class="algo-arrow"></div>
+        <div style="display:flex;gap:14px;width:660px;">
+          <div style="flex:1;background:rgba(220,38,38,.06);border:1px solid #dc2626;border-radius:2px;padding:10px 20px;text-align:center;">
+            <strong style="color:#dc2626;">Unstable</strong><br><span style="font-size:14px;color:#5c6470;">Resuscitation bay → stabilize ABCs</span>
+          </div>
+          <div style="flex:1;background:rgba(5,150,105,.06);border:1px solid #059669;border-radius:2px;padding:10px 20px;text-align:center;">
+            <strong style="color:#059669;">Stable → age-based risk assessment</strong>
+          </div>
+        </div>
+        <div class="algo-arrow"></div>
+        <div style="display:flex;gap:12px;width:660px;">
+          <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:10px 14px;text-align:center;flex:1;">
+            <strong>≤28 days</strong><br><span style="font-size:13px;color:#5c6470;">Full workup<br>Admit + IV antibiotics</span>
+          </div>
+          <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:10px 14px;text-align:center;flex:1;">
+            <strong>29 days–3 months</strong><br><span style="font-size:13px;color:#5c6470;">Risk-stratify using Rochester criteria</span>
+          </div>
+          <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:10px 14px;text-align:center;flex:1;">
+            <strong>>3 months</strong><br><span style="font-size:13px;color:#5c6470;">Risk-stratify using examination + tests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">treatment-algorithm</span>
+    <div class="body" style="justify-content:flex-start;">
+      <h2>Pediatric Community-acquired Pneumonia: Antibiotic Algorithm</h2>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;font-size:14px;">
+        <div style="background:#fff;border:2px solid #1a5fb4;border-radius:2px;padding:8px 24px;text-align:center;font-weight:700;">Clinical diagnosis of CAP → assess severity</div>
+        <div class="algo-arrow"></div>
+        <div style="display:flex;gap:14px;width:720px;">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;">
+            <div style="background:rgba(5,150,105,.06);border:1px solid #059669;border-radius:2px;padding:6px 14px;text-align:center;width:100%;">
+              <strong style="color:#059669;">Outpatient (mild)</strong>
+            </div>
+            <div class="algo-arrow"></div>
+            <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:6px 14px;text-align:center;width:100%;">
+              <strong>AMPC</strong><br><span style="font-size:13px;color:#5c6470;">40–50 mg/kg/day in 3 doses for 5 days</span>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;">
+            <div style="background:rgba(245,158,11,.06);border:1px solid #f59e0b;border-radius:2px;padding:6px 14px;text-align:center;width:100%;">
+              <strong style="color:#f59e0b;">Inpatient (moderate)</strong>
+            </div>
+            <div class="algo-arrow"></div>
+            <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:6px 14px;text-align:center;width:100%;">
+              <strong>IV ampicillin</strong><br><span style="font-size:13px;color:#5c6470;">150–200 mg/kg/day in 4 doses<br>Suspected Mycoplasma: add azithromycin</span>
+            </div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:0;">
+            <div style="background:rgba(220,38,38,.06);border:1px solid #dc2626;border-radius:2px;padding:6px 14px;text-align:center;width:100%;">
+              <strong style="color:#dc2626;">ICU (severe)</strong>
+            </div>
+            <div class="algo-arrow"></div>
+            <div style="background:#fff;border:1px solid #dde3ea;border-radius:2px;padding:6px 14px;text-align:center;width:100%;">
+              <strong>CTX/CTRX + AZM</strong><br><span style="font-size:13px;color:#5c6470;">Suspected MRSA: add vancomycin<br>Reassess after 48 h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">guideline-comparison</span>
+    <div class="body">
+      <h2>Pediatric CAP Guideline Comparison</h2>
+      <table class="table1">
+        <tr>
+          <th>Recommendation</th>
+          <th>Japan (JSPP 2024)</th>
+          <th>United States (AAP/IDSA 2023)</th>
+          <th>Europe (BTS/NICE 2023)</th>
+        </tr>
+        <tr>
+          <td>First-line outpatient therapy</td>
+          <td>AMPC 40-50mg/kg</td>
+          <td>Amoxicillin 90mg/kg</td>
+          <td>Amoxicillin 80-90mg/kg</td>
+        </tr>
+        <tr>
+          <td>Mycoplasma coverage</td>
+          <td>Azithromycin if rapid antigen test is positive</td>
+          <td>If clinically suspected in children ≥5 years</td>
+          <td>Based on age and local epidemiology</td>
+        </tr>
+        <tr>
+          <td>Indication for chest radiography</td>
+          <td>Recommended for inpatients</td>
+          <td>Not needed for outpatients; recommended for inpatients</td>
+          <td>Not routinely required</td>
+        </tr>
+        <tr>
+          <td>Treatment duration</td>
+          <td>5–7 days</td>
+          <td>5 days (shorter if clinically improved)</td>
+          <td>5 days</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+
+
+
+
+
+  <section class="slide slide-landing">
+    <span class="template-label">section-break</span>
+    <h2>Clinical Trial Plots</h2>
+    <p>Clinical Trial Plots</p>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">waterfall-plot</span>
+    <div class="body">
+      <h2>Waterfall Plot: Change in Tumor Size</h2>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+        <canvas id="chartWaterfall" style="max-height:380px;"></canvas>
+      </div>
+      <p class="muted" style="font-size:13px;text-align:center;">Dashed line: RECIST partial-response threshold (−30%)&nbsp;|&nbsp; Each bar shows one patient's best overall response</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">swimmer-plot</span>
+    <div class="body">
+      <h2>Swimmer Plot: Treatment Duration by Patient</h2>
+      <div class="gantt" style="gap:6px;">
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 01</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:85%;background:#1a5fb4;"></div><span class="swimmer-marker" style="position:absolute;left:85%;top:4px;font-size:14px;" title="CR">●</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 02</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:72%;background:#1a5fb4;"></div><span class="swimmer-marker" style="position:absolute;left:72%;top:4px;font-size:14px;" title="PD">▲</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 03</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:95%;background:#1a5fb4;"></div><span class="swimmer-marker" style="position:absolute;left:95%;top:4px;font-size:14px;" title="CR">●</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 04</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:45%;background:#6b7280;"></div><span class="swimmer-marker" style="position:absolute;left:45%;top:4px;font-size:14px;" title="PD">▲</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 05</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:100%;background:#1a5fb4;"></div><span class="swimmer-marker" style="position:absolute;left:100%;top:4px;font-size:14px;transform:translateX(-100%);" title="ongoing">→</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 06</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:60%;background:#6b7280;"></div><span class="swimmer-marker" style="position:absolute;left:38%;top:4px;font-size:14px;" title="PR">◆</span><span class="swimmer-marker" style="position:absolute;left:60%;top:4px;font-size:14px;" title="PD">▲</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 07</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:80%;background:#1a5fb4;"></div><span class="swimmer-marker" style="position:absolute;left:80%;top:4px;font-size:14px;" title="CR">●</span></div></div>
+        <div class="gantt-row" style="height:28px;"><div class="gantt-label" style="font-size:13px;">Pt 08</div><div class="gantt-bar-area"><div class="gantt-bar" style="left:0%;width:35%;background:#5c6470;"></div><span class="swimmer-marker" style="position:absolute;left:35%;top:4px;font-size:14px;" title="Death">✕</span></div></div>
+      </div>
+      <p class="muted" style="font-size:13px;text-align:center;margin-top:8px;">● CR &nbsp; ◆ PR &nbsp; ▲ PD &nbsp; ✕ Death &nbsp; → Ongoing</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-content">
+    <span class="template-label">funnel-plot</span>
+    <div class="body">
+      <h2>Funnel Plot: Assessment of Publication Bias</h2>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;">
+        <canvas id="chartFunnel" style="max-height:380px;"></canvas>
+      </div>
+      <p class="muted" style="font-size:13px;text-align:center;">Most points fall within the inverted funnel; publication bias is not suggested (Egger's test: p=0.32).</p>
+    </div>
+  </section>
+
+
+  <section class="slide slide-end">
+    <span class="template-label">slide-end</span>
+    <div class="mark"></div>
+    <h2>Thank You</h2>
+    <p class="muted">Thank you for your attention</p>
+  </section>
+
+</div>
+
+<div class="slide-ui">
+  <div class="slide-nav">
+    <button id="btn-prev">← Previous</button>
+    <button id="btn-next">Next →</button>
+    <button id="btn-fs">Full screen</button>
+    <button id="btn-pdf">PDF</button>
+  </div>
+</div>
+
+<script src="../../engine/slide.js"></script>
+
+<script>
+
+document.querySelectorAll('.slide').forEach((slide, i) => {
+  const total = document.querySelectorAll('.slide').length;
+  const footer = document.createElement('div');
+  footer.className = 'slide-footer';
+  footer.innerHTML = `<span class="footer-left">Medical Slide Template Catalog</span><span class="footer-right">${String(i + 1).padStart(2, '0')} / ${total}</span>`;
+  slide.appendChild(footer);
+});
+
+const C = { clay:'#1a5fb4', kraft:'#6b7280', oat:'#dde3ea', slate:'#16191f', muted:'#5c6470' };
+Chart.defaults.font.family = "'Inter',Arial,sans-serif";
+Chart.defaults.color = '#16191f';
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.animation = false;
+
+document.querySelectorAll('.radial').forEach(el => {
+  const items = el.querySelectorAll('.radial-item');
+  const r = parseInt(el.dataset.radius) || 160;
+  const n = items.length;
+  items.forEach((item, i) => {
+    const angle = (2 * Math.PI * i / n) - Math.PI / 2;
+    item.style.left = `calc(50% + ${Math.cos(angle) * r}px - 50px)`;
+    item.style.top  = `calc(50% + ${Math.sin(angle) * r}px - 50px)`;
+  });
+});
+
+new Chart(document.getElementById('chartKM'), {
+  type: 'line',
+  data: {
+    labels: ['0', '7', '14', '21', '28', '35', '42', '49', '56'],
+    datasets: [
+      {
+        label: 'Intervention',
+        data: [100, 96, 92, 88, 85, 83, 82, 81, 80],
+        borderColor: C.clay,
+        borderWidth: 2.5,
+        pointRadius: 0,
+        tension: 0,
+        stepped: 'before',
+        fill: false
+      },
+      {
+        label: 'Control',
+        data: [100, 92, 84, 76, 70, 65, 62, 60, 58],
+        borderColor: C.muted,
+        borderWidth: 2.5,
+        pointRadius: 0,
+        tension: 0,
+        stepped: 'before',
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom' } },
+    scales: {
+      x: { title: { display: true, text: 'Days' }, grid: { display: false } },
+      y: { min: 40, max: 100, title: { display: true, text: 'Event-free survival (%)' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('chartROC'), {
+  type: 'line',
+  data: {
+    datasets: [
+      {
+        label: 'AI model (AUC=0.94)',
+        data: [
+          {x:0,y:0},{x:2,y:45},{x:5,y:68},{x:8,y:80},{x:11,y:88},
+          {x:15,y:92},{x:20,y:95},{x:30,y:97},{x:50,y:99},{x:100,y:100}
+        ],
+        borderColor: C.clay,
+        borderWidth: 2.5,
+        pointRadius: 3,
+        tension: 0.3,
+        fill: false
+      },
+      {
+        label: 'Clinician alone (AUC=0.81)',
+        data: [
+          {x:0,y:0},{x:5,y:30},{x:10,y:50},{x:15,y:62},{x:20,y:70},
+          {x:30,y:78},{x:40,y:84},{x:55,y:90},{x:75,y:96},{x:100,y:100}
+        ],
+        borderColor: C.kraft,
+        borderWidth: 2,
+        pointRadius: 3,
+        tension: 0.3,
+        borderDash: [5,3],
+        fill: false
+      },
+      {
+        label: 'Chance',
+        data: [{x:0,y:0},{x:100,y:100}],
+        borderColor: '#dde3ea',
+        borderWidth: 1,
+        pointRadius: 0,
+        borderDash: [3,3],
+        fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 12 } } } },
+    scales: {
+      x: { type: 'linear', min: 0, max: 100, title: { display: true, text: '1 − Specificity (%)' } },
+      y: { min: 0, max: 100, title: { display: true, text: 'Sensitivity (%)' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('chartCourse'), {
+  type: 'line',
+  data: {
+    labels: ['Day1','Day2','Day3','Day5','Day7','Day10','Day14'],
+    datasets: [{
+      data: [39.2, 39.8, 38.4, 37.6, 37.2, 36.8, 36.6],
+      borderColor: C.clay,
+      borderWidth: 2,
+      pointRadius: 4,
+      pointBackgroundColor: C.clay,
+      tension: 0.3,
+      fill: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { display: false },
+      y: { min: 36, max: 40.5, display: true, ticks: { font: { size: 12 } }, grid: { color: 'rgba(221,227,234,.3)' } }
+    }
+  }
+});
+
+(() => {
+  const vals = [-72,-65,-58,-52,-48,-45,-42,-38,-35,-31,-28,-24,-20,-15,-10,-5,0,5,8,12,18,25,32,40];
+  const colors = vals.map(v => v > 0 ? '#dc2626' : '#1a5fb4');
+  new Chart(document.getElementById('chartWaterfall'), {
+    type: 'bar',
+    data: {
+      labels: vals.map((_,i) => 'Pt '+(i+1)),
+      datasets: [{
+        data: vals,
+        backgroundColor: colors,
+        borderRadius: 2,
+        barPercentage: 0.85
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        annotation: undefined
+      },
+      scales: {
+        x: { display: false },
+        y: {
+          title: { display: true, text: 'Change in tumor size (%)' },
+          grid: { color: 'rgba(221,227,234,.3)' }
+        }
+      }
+    },
+    plugins: [{
+      id: 'thresholdLine',
+      afterDraw(chart) {
+        const yScale = chart.scales.y;
+        const y = yScale.getPixelForValue(-30);
+        const ctx = chart.ctx;
+        ctx.save();
+        ctx.setLineDash([6,4]);
+        ctx.strokeStyle = '#5c6470';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(chart.chartArea.left, y);
+        ctx.lineTo(chart.chartArea.right, y);
+        ctx.stroke();
+        ctx.fillStyle = '#5c6470';
+        ctx.font = '11px Inter';
+        ctx.fillText('PR (-30%)', chart.chartArea.right - 60, y - 6);
+        ctx.restore();
+      }
+    }]
+  });
+})();
+
+(() => {
+  const studies = [
+    {x:0.55,y:0.12},{x:0.62,y:0.08},{x:0.70,y:0.15},{x:0.58,y:0.10},
+    {x:0.67,y:0.18},{x:0.48,y:0.22},{x:0.73,y:0.14},{x:0.60,y:0.06},
+    {x:0.65,y:0.20},{x:0.51,y:0.25},{x:0.69,y:0.09},{x:0.63,y:0.11}
+  ];
+  const pooled = 0.62;
+  const funnelLeft = [{x:pooled,y:0},{x:pooled-1.96*0.30,y:0.30}];
+  const funnelRight = [{x:pooled,y:0},{x:pooled+1.96*0.30,y:0.30}];
+  new Chart(document.getElementById('chartFunnel'), {
+    type: 'scatter',
+    data: {
+      datasets: [
+        {
+          label: 'Individual studies',
+          data: studies,
+          backgroundColor: C.clay,
+          pointRadius: 6,
+          pointHoverRadius: 8
+        },
+        {
+          label: '95% CI boundary (left)',
+          data: funnelLeft,
+          type: 'line',
+          borderColor: '#dde3ea',
+          borderWidth: 1.5,
+          borderDash: [4,3],
+          pointRadius: 0,
+          fill: false
+        },
+        {
+          label: '95% CI boundary (right)',
+          data: funnelRight,
+          type: 'line',
+          borderColor: '#dde3ea',
+          borderWidth: 1.5,
+          borderDash: [4,3],
+          pointRadius: 0,
+          fill: false
+        },
+        {
+          label: 'Pooled effect',
+          data: [{x:pooled,y:0},{x:pooled,y:0.30}],
+          type: 'line',
+          borderColor: '#16191f',
+          borderWidth: 1,
+          borderDash: [2,2],
+          pointRadius: 0,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: {
+            filter: item => item.text === 'Individual studies' || item.text === 'Pooled effect',
+            font: { size: 12 }
+          }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: 'Hazard ratio (HR)' },
+          min: 0.2,
+          max: 1.2
+        },
+        y: {
+          title: { display: true, text: 'Standard error (SE)' },
+          reverse: true,
+          min: 0,
+          max: 0.30
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
