@@ -11,6 +11,7 @@ Two fully editable 16:9 PowerPoint decks for a clinical M&M presentation:
 - NEJM-inspired color palette derived from the canonical `ggsci` NEJM palette
 - Native PowerPoint text, shapes, tables, timelines, arrows, and charts; core slide content remains editable
 - 20 slides covering severity, localization, hemostasis, etiology, BAE, rebleeding, diagnostic failure analysis, and prevention
+- Auditorium-readable edition: shortened copy with approximately 22–29 pt primary body text and enlarged table/chart labels
 
 The source review did not contain patient-specific chart values. Slides 3 and 4 therefore contain visible placeholders that must be replaced with the actual case data.
 

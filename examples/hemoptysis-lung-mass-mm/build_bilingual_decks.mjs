@@ -39,25 +39,25 @@ const COPY = {
     ],
     titles: [
       "Hemoptysis + Lung Mass",
-      "One presentation, four unfinished clinical problems",
-      "Case snapshot: define the patient before defining the lesion",
-      "The timeline should show where uncertainty accumulated",
-      "Severity is functional - not a single volume threshold",
-      "Protect the airway first; use CTA to map the next move",
-      "A mass plus hemoptysis needs a mechanism-based differential",
-      "CT, CTA, bronchoscopy, and angiography answer different questions",
-      "A nondiagnostic bronchoscopy does not close the case",
-      "Repeated sampling fails for identifiable - and correctable - reasons",
-      "Three vascular beds can produce clinically important bleeding",
-      "Describe the culprit circuit - not merely 'abnormal vessels'",
-      "Pseudoaneurysm treatment depends on inflow and flow direction",
-      "BAE controls bleeding; it does not identify the lung mass",
-      "Immediate success is high; durable control is more variable",
-      "Rebleeding usually signals incomplete source control",
-      "After BAE, choose a new tissue target - not the same failed route",
-      "The M&M inflection point: hemostasis mistaken for diagnostic closure",
-      "Prevention requires an owner, a target, a specimen plan, and a trigger",
-      "Control the bleeding. Preserve uncertainty. Finish the diagnosis.",
+      "Four questions must stay open",
+      "Define the patient before the lesion",
+      "Show where uncertainty accumulated",
+      "Severity is physiologic - not volumetric",
+      "Protect the airway; use CTA to map",
+      "A mass with hemoptysis needs a mechanism",
+      "Each test answers a different question",
+      "Nondiagnostic is not benign",
+      "Why repeated sampling fails",
+      "Most severe bleeding is systemic",
+      "Map the entire culprit circuit",
+      "Treat the circuit - not the brightest spot",
+      "BAE controls bleeding - not the diagnosis",
+      "Immediate success is high; durability varies",
+      "Rebleeding means source control is incomplete",
+      "Choose a new tissue target after BAE",
+      "M&M error: hemostasis became diagnostic closure",
+      "Prevention needs ownership and deadlines",
+      "Control bleeding. Finish the diagnosis.",
     ],
   },
   zh: {
@@ -75,25 +75,25 @@ const COPY = {
     ],
     titles: [
       "咳血合併肺部腫塊",
-      "同一個病例，同時有四個尚未完成的問題",
-      "病例摘要：先定義病人，再定義病灶",
-      "時間軸要呈現不確定性在哪裡累積",
-      "嚴重度是功能性判斷，不是單一出血量門檻",
-      "先保護呼吸道；穩定後用 CTA 規劃下一步",
-      "肺部腫塊合併咳血，應以機轉建立鑑別診斷",
-      "CT、CTA、支氣管鏡與血管攝影回答不同問題",
-      "支氣管鏡未確診，不代表病例可以結案",
-      "重複採樣失敗通常有可辨識、可修正的原因",
-      "三個血管床都可能造成臨床重要的咳血",
-      "描述完整責任血管迴路，不只寫「異常血管」",
-      "假性動脈瘤的治療取決於流入、流出與血流方向",
-      "BAE 負責止血，但不會告訴你腫塊的病因",
-      "立即止血成功率高；長期控制則較不穩定",
-      "再出血通常代表來源控制仍不完整",
-      "BAE 後應重新選擇組織標的，不要複製失敗路徑",
-      "M&M 的轉折點：把止血成功誤認為診斷完成",
-      "預防需要診斷負責人、標的、檢體計畫與升級條件",
-      "控制出血、保留不確定性、完成病因診斷",
+      "四個問題都不能提前結案",
+      "先定義病人，再定義病灶",
+      "呈現不確定性在哪裡累積",
+      "嚴重度看生理，不只看出血量",
+      "先保護呼吸道，再用 CTA 規劃",
+      "肺部腫塊合併咳血：先想機轉",
+      "每項檢查回答不同問題",
+      "未確診不等於良性",
+      "重複採樣為什麼失敗",
+      "嚴重咳血多來自體循環",
+      "畫出完整責任血管迴路",
+      "治療整個迴路，不只處理亮點",
+      "BAE 負責止血，不負責病因診斷",
+      "立即成功率高，長期控制較不穩定",
+      "再出血代表來源控制仍不完整",
+      "BAE 後要換新的組織標的",
+      "M&M 錯誤：把止血當成診斷完成",
+      "預防需要負責人與明確期限",
+      "控制出血，完成病因診斷",
     ],
   },
 };
@@ -159,10 +159,9 @@ function addBase(slide, lang, index, title, label, source = "") {
   if (index > 1) {
     // Keep claim-style titles to one line so the content grid always begins at y=150.
     // CJK glyphs are wider than Latin text, so use language-aware thresholds.
-    let size = lang === "zh"
-      ? (title.length > 22 ? 31 : title.length > 16 ? 34 : 38)
-      : (title.length > 48 ? 31 : title.length > 38 ? 35 : 40);
-    if (lang === "zh" && index === 10) size = 30;
+    const size = lang === "zh"
+      ? (title.length > 18 ? 36 : 40)
+      : (title.length > 48 ? 36 : title.length > 38 ? 38 : 40);
     textBox(slide, title, 64, 60, 1128, 58, { font: t.font, size, bold: true, color: C.ink, name: `title-${index}` });
     rect(slide, 64, 128, 1152, 2, C.line);
   }
@@ -178,8 +177,8 @@ function addPill(slide, label, x, y, w, fill, font, color = C.paper) {
 
 function addMetric(slide, value, label, x, y, color, font, sub = "") {
   textBox(slide, value, x, y, 180, 70, { font, size: 54, bold: true, color, align: "center" });
-  textBox(slide, label, x, y + 72, 180, 44, { font, size: 17, bold: true, color: C.ink, align: "center" });
-  if (sub) textBox(slide, sub, x, y + 118, 180, 34, { font, size: 12, color: C.gray, align: "center" });
+  textBox(slide, label, x - 10, y + 72, 200, 52, { font, size: 22, bold: true, color: C.ink, align: "center" });
+  if (sub) textBox(slide, sub, x - 10, y + 126, 200, 38, { font, size: 16, color: C.gray, align: "center" });
 }
 
 function addFourColumns(slide, items, y, font) {
@@ -189,7 +188,7 @@ function addFourColumns(slide, items, y, font) {
     rect(slide, x, y, w, 405, C.paper, it.color, 2, false);
     rect(slide, x, y, w, 8, it.color);
     textBox(slide, it.title, x + 18, y + 28, w - 36, 54, { font, size: 22, bold: true, color: it.color });
-    textBox(slide, it.body, x + 18, y + 92, w - 36, 275, { font, size: 17, color: C.ink });
+    textBox(slide, it.body, x + 18, y + 92, w - 36, 275, { font, size: 22, color: C.ink });
   });
 }
 
@@ -230,7 +229,7 @@ function slide02(p, lang) {
     ellipse(s, 72, y, 68, 68, it[3]);
     textBox(s, it[0], 72, y + 14, 68, 36, { font: t.font, size: 28, bold: true, color: C.paper, align: "center" });
     textBox(s, it[1], 166, y, 220, 34, { font: t.font, size: 24, bold: true, color: it[3] });
-    textBox(s, it[2], 402, y, 760, 72, { font: t.font, size: 19, color: C.ink });
+    textBox(s, it[2], 402, y - 2, 760, 78, { font: t.font, size: 24, color: C.ink });
     if (i < 3) rect(s, 104, y + 72, 4, 35, C.line);
   });
   return s;
@@ -241,20 +240,20 @@ function slide03(p, lang) {
   addBase(s, lang, 3, t.titles[2], t.labels[2]);
   addPill(s, t.replace, 930, 151, 250, C.orange, t.font);
   const fields = lang === "en" ? [
-    ["Age / sex", "[Age / sex]"], ["Relevant history", "[Smoking, TB/NTM, cancer, anticoagulation, prior thoracic procedure]"],
-    ["Chief concern", "[Hemoptysis pattern, duration, estimated volume, trajectory]"], ["Physiology", "[Airway, oxygen requirement, hemodynamics, hemoglobin trend]"],
-    ["Imaging", "[Mass/cavity location, nodes, hemorrhage, vascular signs]"], ["Current status", "[Specific malignant / specific benign / unresolved nondiagnostic mass]"],
+    ["Age / sex", "[Age / sex]"], ["Relevant history", "[Smoking • infection • cancer • anticoagulation]"],
+    ["Chief concern", "[Pattern • duration • amount • trajectory]"], ["Physiology", "[Airway • oxygen • blood pressure • Hb]"],
+    ["Imaging", "[Mass/cavity • nodes • hemorrhage • vessels]"], ["Current status", "[Malignant • benign • still nondiagnostic]"],
   ] : [
-    ["年齡／性別", "[年齡／性別]"], ["重要病史", "[吸菸、TB／NTM、癌症、抗凝治療、胸腔處置史]"],
-    ["主訴", "[咳血型態、持續時間、估計量與變化趨勢]"], ["生理狀態", "[呼吸道、氧氣需求、血流動力、血紅素變化]"],
-    ["影像", "[腫塊／空洞位置、淋巴結、出血區、血管徵象]"], ["目前診斷狀態", "[特定惡性／特定良性／未解決的未確診腫塊]"],
+    ["年齡／性別", "[年齡／性別]"], ["重要病史", "[吸菸 • 感染 • 癌症 • 抗凝治療]"],
+    ["主訴", "[型態 • 時間 • 出血量 • 變化]"], ["生理狀態", "[呼吸道 • 氧氣 • 血壓 • Hb]"],
+    ["影像", "[腫塊／空洞 • 淋巴結 • 出血 • 血管]"], ["目前診斷", "[惡性 • 良性 • 仍未確診]"],
   ];
   fields.forEach((f, i) => {
     const col = i % 2, row = Math.floor(i / 2);
     const x = 72 + col * 578, y = 170 + row * 144;
-    textBox(s, f[0], x, y, 210, 28, { font: t.font, size: 17, bold: true, color: C.blue });
+    textBox(s, f[0], x, y, 230, 30, { font: t.font, size: 22, bold: true, color: C.blue });
     rect(s, x, y + 34, 542, 86, C.soft, C.line, 1, false);
-    textBox(s, f[1], x + 14, y + 50, 512, 54, { font: t.font, size: 16, color: C.gray });
+    textBox(s, f[1], x + 14, y + 48, 512, 58, { font: t.font, size: 23, color: C.gray });
   });
   return s;
 }
@@ -279,9 +278,9 @@ function slide04(p, lang) {
     const x = 95 + i * 290;
     ellipse(s, x + 77, 320, 64, 64, [C.red, C.slate, C.orange, C.blue][i], C.paper, 3);
     textBox(s, String(i + 1), x + 77, 334, 64, 34, { font: t.font, size: 24, bold: true, color: C.paper, align: "center" });
-    textBox(s, st[0], x, 410, 220, 38, { font: t.font, size: 20, bold: true, color: [C.red, C.slate, C.orange, C.blue][i], align: "center" });
-    textBox(s, st[1], x, 458, 220, 76, { font: t.font, size: 17, color: C.gray, align: "center" });
-    if (i < 3) textBox(s, lang === "en" ? "What was known?\nWhat remained unknown?" : "當時已知什麼？\n仍未知什麼？", x + 208, 250, 126, 56, { font: t.font, size: 12, color: C.lightGray, align: "center" });
+    textBox(s, st[0], x - 5, 410, 230, 46, { font: t.font, size: 24, bold: true, color: [C.red, C.slate, C.orange, C.blue][i], align: "center" });
+    textBox(s, st[1], x - 5, 468, 230, 86, { font: t.font, size: 22, color: C.gray, align: "center" });
+    if (i < 3) textBox(s, lang === "en" ? "Known?\nStill unknown?" : "已知？\n仍未知？", x + 210, 250, 122, 60, { font: t.font, size: 18, color: C.lightGray, align: "center" });
   });
   return s;
 }
@@ -305,10 +304,10 @@ function slide05(p, lang) {
   axes.forEach((a, i) => {
     const y = 164 + i * 91;
     rect(s, 72, y, 18, 64, a[2]);
-    textBox(s, a[0], 112, y + 5, 215, 29, { font: t.font, size: 22, bold: true, color: a[2] });
-    textBox(s, a[1], 340, y + 4, 790, 54, { font: t.font, size: 18, color: C.ink });
+    textBox(s, a[0], 112, y + 3, 215, 34, { font: t.font, size: 25, bold: true, color: a[2] });
+    textBox(s, a[1], 340, y + 2, 820, 60, { font: t.font, size: 24, color: C.ink });
   });
-  textBox(s, lang === "en" ? "The dominant threat is usually asphyxiation, not exsanguination." : "最直接的死亡威脅通常是窒息，而不是單純失血。", 290, 620, 770, 34, { font: t.font, size: 21, bold: true, color: C.red, align: "center" });
+  textBox(s, lang === "en" ? "The immediate threat is usually asphyxiation." : "最直接的威脅通常是窒息。", 290, 616, 770, 40, { font: t.font, size: 26, bold: true, color: C.red, align: "center" });
   return s;
 }
 
@@ -320,15 +319,15 @@ function slide06(p, lang) {
   arrow(s, 802, 318, 140, 44, C.line);
   const initial = lang === "en" ? "Hemoptysis with threatened physiology" : "咳血合併生理威脅";
   rect(s, 408, 158, 464, 82, C.soft, C.red, 2, true);
-  textBox(s, initial, 440, 180, 400, 36, { font: t.font, size: 22, bold: true, color: C.red, align: "center" });
+  textBox(s, initial, 440, 170, 400, 64, { font: t.font, size: 24, bold: true, color: C.red, align: "center" });
   const leftTitle = lang === "en" ? "UNSTABLE / AIRWAY THREATENED" : "不穩定／呼吸道受威脅";
   const rightTitle = lang === "en" ? "STABLE ENOUGH FOR MAPPING" : "可穩定完成血管定位";
   rect(s, 92, 300, 480, 280, C.paper, C.red, 2, false);
   rect(s, 708, 300, 480, 280, C.paper, C.blue, 2, false);
-  textBox(s, leftTitle, 118, 326, 428, 34, { font: t.font, size: 19, bold: true, color: C.red, align: "center" });
-  textBox(s, rightTitle, 734, 326, 428, 34, { font: t.font, size: 19, bold: true, color: C.blue, align: "center" });
-  textBox(s, lang === "en" ? "1. Position bleeding lung down\n2. Secure airway / isolate lung if needed\n3. Bronchoscopy for clot, airway, localization\n4. Proceed to CTA/angiography when feasible" : "1. 出血側朝下\n2. 必要時建立呼吸道與單肺隔離\n3. 支氣管鏡清除血塊、定位與維持呼吸道\n4. 可行時接續 CTA／血管攝影", 126, 386, 412, 150, { font: t.font, size: 18, color: C.ink });
-  textBox(s, lang === "en" ? "1. Contrast CT / CTA\n2. Define lesion and bleeding territory\n3. Map bronchial, non-bronchial, pulmonary beds\n4. Select bronchoscopic, endovascular, or surgical route" : "1. 對比 CT／CTA\n2. 定義病灶與出血區域\n3. 建立 bronchial、non-bronchial 與 pulmonary 地圖\n4. 選擇支氣管鏡、血管內或手術路徑", 742, 386, 412, 150, { font: t.font, size: 18, color: C.ink });
+  textBox(s, leftTitle, 108, 324, 448, 42, { font: t.font, size: 24, bold: true, color: C.red, align: "center" });
+  textBox(s, rightTitle, 724, 324, 448, 42, { font: t.font, size: 24, bold: true, color: C.blue, align: "center" });
+  textBox(s, lang === "en" ? "1. Bleeding lung down\n2. Secure / isolate airway\n3. Bronchoscopy for clot and localization\n4. CTA or angiography when feasible" : "1. 出血側朝下\n2. 建立／隔離呼吸道\n3. 支氣管鏡清血塊並定位\n4. 可行時接續 CTA／血管攝影", 126, 382, 412, 170, { font: t.font, size: 23, color: C.ink });
+  textBox(s, lang === "en" ? "1. Contrast CT / CTA\n2. Define lesion and bleeding territory\n3. Map all three vascular beds\n4. Choose endoscopic, vascular, or surgical route" : "1. 對比 CT／CTA\n2. 定義病灶與出血區域\n3. 建立三個血管床地圖\n4. 選擇內視鏡、血管內或手術路徑", 742, 382, 412, 170, { font: t.font, size: 23, color: C.ink });
   return s;
 }
 
@@ -336,15 +335,15 @@ function slide07(p, lang) {
   const t = COPY[lang], s = p.slides.add();
   addBase(s, lang, 7, t.titles[6], t.labels[6], "Source: Expanded review synthesis; AAFP 2022 differential framework.");
   const items = lang === "en" ? [
-    { title: "Malignancy", color: C.blue, body: "Mass / necrosis / nodes\n\nBleeding: neovascularity, airway invasion, arterial erosion\n\nNeed: specific malignant tissue" },
-    { title: "Infection", color: C.green, body: "TB / NTM / Aspergillus / abscess\n\nBleeding: cavity erosion, collateral recruitment, pseudoaneurysm\n\nNeed: pathology + microbiology" },
-    { title: "Inflammatory", color: C.violet, body: "Vasculitis / organizing pneumonia / inflammatory mass\n\nBleeding: capillaritis or vascular injury\n\nNonspecific inflammation is insufficient" },
-    { title: "Vascular", color: C.red, body: "Aneurysm / pseudoaneurysm / AVM / fistula\n\nBleeding: high-pressure inflow or fragile circuit\n\nMay explain bleeding but not the mass" },
+    { title: "Malignancy", color: C.blue, body: "Mass • necrosis • nodes\n\nNew vessels\nAirway invasion\nArterial erosion\n\nNeed malignant tissue" },
+    { title: "Infection", color: C.green, body: "TB • NTM • fungus • abscess\n\nCavity erosion\nCollateral flow\nPseudoaneurysm\n\nNeed tissue + cultures" },
+    { title: "Inflammatory", color: C.violet, body: "Vasculitis\nOrganizing pneumonia\nInflammatory mass\n\nCapillaritis or vessel injury\n\nInflammation alone is insufficient" },
+    { title: "Vascular", color: C.red, body: "Aneurysm • AVM • fistula\n\nHigh-pressure inflow\nFragile circuit\n\nMay explain bleeding—not the mass" },
   ] : [
-    { title: "惡性腫瘤", color: C.blue, body: "腫塊／壞死／淋巴結\n\n出血：新生血管、侵犯呼吸道、侵蝕動脈\n\n需要：特定惡性組織診斷" },
-    { title: "感染", color: C.green, body: "TB／NTM／Aspergillus／膿瘍\n\n出血：空洞侵蝕、側枝循環、假性動脈瘤\n\n需要：病理＋微生物" },
-    { title: "發炎性", color: C.violet, body: "血管炎／器質化肺炎／發炎性腫塊\n\n出血：微血管炎或血管壁損傷\n\n非特異性發炎不足以結案" },
-    { title: "血管性", color: C.red, body: "動脈瘤／假性動脈瘤／AVM／瘻管\n\n出血：高壓流入或脆弱血管迴路\n\n可解釋咳血，未必解釋腫塊" },
+    { title: "惡性腫瘤", color: C.blue, body: "腫塊 • 壞死 • 淋巴結\n\n新生血管\n侵犯呼吸道\n侵蝕動脈\n\n需要惡性組織診斷" },
+    { title: "感染", color: C.green, body: "TB • NTM • 黴菌 • 膿瘍\n\n空洞侵蝕\n側枝循環\n假性動脈瘤\n\n需要組織＋培養" },
+    { title: "發炎性", color: C.violet, body: "血管炎\n器質化肺炎\n發炎性腫塊\n\n微血管炎／血管損傷\n\n非特異發炎不足以結案" },
+    { title: "血管性", color: C.red, body: "動脈瘤 • AVM • 瘻管\n\n高壓流入\n脆弱血管迴路\n\n可解釋咳血，未必解釋腫塊" },
   ];
   addFourColumns(s, items, 168, t.font);
   return s;
@@ -354,30 +353,30 @@ function slide08(p, lang) {
   const t = COPY[lang], s = p.slides.add();
   addBase(s, lang, 8, t.titles[7], t.labels[7], "Sources: AAFP 2022; ACR; CIRSE 2022.");
   const rows = lang === "en" ? [
-    ["Contrast CT", "Mass/cavity morphology, parenchyma, nodes", "Complete arterial map or airway control"],
-    ["CTA", "Bleeding territory and bronchial/NBSA/pulmonary map", "Tissue diagnosis"],
-    ["Bronchoscopy", "Airway, clot, active bleed, endobronchial lesion, sampling", "Complete systemic vascular map"],
-    ["Angiography", "Dynamic flow, culprit vessel, shunt, embolization", "Mass pathology"],
+    ["Contrast CT", "Mass, cavity, lung and nodes", "Full arterial map / airway control"],
+    ["CTA", "Bleeding territory + 3 vascular beds", "Tissue diagnosis"],
+    ["Bronchoscopy", "Airway, clot, active bleed, sampling", "Full systemic vascular map"],
+    ["Angiography", "Flow, culprit vessel, shunt, embolization", "Mass pathology"],
   ] : [
-    ["對比 CT", "腫塊／空洞型態、肺實質、淋巴結", "完整動脈地圖或即時呼吸道控制"],
-    ["CTA", "出血區域與 bronchial／NBSA／pulmonary 地圖", "組織診斷"],
-    ["支氣管鏡", "呼吸道、血塊、活動出血、氣管內病灶、採樣", "完整 systemic vascular map"],
-    ["血管攝影", "動態血流、責任血管、shunt、同時栓塞", "腫塊病理"],
+    ["對比 CT", "腫塊、空洞、肺實質與淋巴結", "完整動脈地圖／呼吸道控制"],
+    ["CTA", "出血區域＋三個血管床", "組織診斷"],
+    ["支氣管鏡", "呼吸道、血塊、活動出血、採樣", "完整體循環血管地圖"],
+    ["血管攝影", "血流、責任血管、分流與栓塞", "腫塊病理"],
   ];
   const x = [72, 310, 738], widths = [238, 428, 438];
   [lang === "en" ? "Tool" : "工具", lang === "en" ? "Best question" : "最擅長回答", lang === "en" ? "Cannot answer alone" : "無法單獨回答"].forEach((h, i) => {
     rect(s, x[i], 166, widths[i], 48, C.blue);
-    textBox(s, h, x[i] + 12, 178, widths[i] - 24, 24, { font: t.font, size: 17, bold: true, color: C.paper, align: i ? "left" : "center" });
+    textBox(s, h, x[i] + 12, 175, widths[i] - 24, 32, { font: t.font, size: 22, bold: true, color: C.paper, align: i ? "left" : "center" });
   });
   rows.forEach((r, ri) => {
     const y = 214 + ri * 94;
     const fill = ri % 2 ? C.soft : C.paper;
     r.forEach((cell, ci) => {
       rect(s, x[ci], y, widths[ci], 94, fill, C.line, 1);
-      textBox(s, cell, x[ci] + 14, y + 16, widths[ci] - 28, 62, { font: t.font, size: ci === 0 ? 18 : 16, bold: ci === 0, color: ci === 0 ? C.blue : C.ink, align: ci === 0 ? "center" : "left" });
+      textBox(s, cell, x[ci] + 14, y + 12, widths[ci] - 28, 70, { font: t.font, size: ci === 0 ? 23 : 21, bold: ci === 0, color: ci === 0 ? C.blue : C.ink, align: ci === 0 ? "center" : "left" });
     });
   });
-  textBox(s, lang === "en" ? "These tools are complementary - not competitors." : "這些工具是互補關係，不是互相競爭。", 360, 612, 560, 30, { font: t.font, size: 20, bold: true, color: C.orange, align: "center" });
+  textBox(s, lang === "en" ? "Use them together." : "這些工具要搭配使用。", 360, 608, 560, 38, { font: t.font, size: 26, bold: true, color: C.orange, align: "center" });
   return s;
 }
 
@@ -385,23 +384,23 @@ function slide09(p, lang) {
   const t = COPY[lang], s = p.slides.add();
   addBase(s, lang, 9, t.titles[8], t.labels[8], "Source: Gonzalez et al. ATS/ACCP Research Statement. AJRCCM. 2024;209:634-646.");
   const cols = lang === "en" ? [
-    ["Specific malignant", "Cancer subtype or malignant diagnosis that explains the lesion", C.blue],
-    ["Specific benign", "A diagnosis that explains the lesion and does not require immediate additional intervention", C.green],
-    ["Nondiagnostic", "Atypia • nonspecific inflammation • blood • necrosis • normal lung • insufficient tissue", C.red],
+    ["Specific malignant", "Malignant tissue that explains the lesion", C.blue],
+    ["Specific benign", "A benign diagnosis that fully explains the lesion", C.green],
+    ["Nondiagnostic", "Atypia • inflammation • blood • necrosis • insufficient tissue", C.red],
   ] : [
-    ["特定惡性診斷", "能解釋病灶的癌別或明確惡性診斷", C.blue],
-    ["特定良性診斷", "足以解釋病灶，且不需立即追加診斷性處置", C.green],
-    ["未確診／無診斷性", "異型細胞 • 非特異性發炎 • 血液 • 壞死 • 正常肺 • 組織不足", C.red],
+    ["特定惡性診斷", "能完整解釋病灶的惡性組織", C.blue],
+    ["特定良性診斷", "能完整解釋病灶的良性診斷", C.green],
+    ["未確診／無診斷性", "異型 • 發炎 • 血液 • 壞死 • 組織不足", C.red],
   ];
   cols.forEach((c, i) => {
     const x = 72 + i * 380;
     rect(s, x, 176, 344, 330, C.paper, c[2], 3, false);
     rect(s, x, 176, 344, 10, c[2]);
     textBox(s, c[0], x + 22, 216, 300, 70, { font: t.font, size: 24, bold: true, color: c[2], align: "center" });
-    textBox(s, c[1], x + 28, 308, 288, 140, { font: t.font, size: 18, color: C.ink, align: "center" });
+    textBox(s, c[1], x + 24, 302, 296, 152, { font: t.font, size: 25, color: C.ink, align: "center" });
   });
   rect(s, 168, 548, 944, 66, C.soft, C.orange, 1, false);
-  textBox(s, lang === "en" ? "If another biopsy or surgery is still needed now, the prior procedure did not resolve the diagnostic question." : "如果現在仍需要再次 biopsy 或手術，前一次處置就沒有真正解決診斷問題。", 190, 566, 900, 34, { font: t.font, size: 20, bold: true, color: C.orange, align: "center" });
+  textBox(s, lang === "en" ? "If more tissue is needed, the diagnosis is still open." : "如果仍需要組織，診斷就還沒有完成。", 190, 562, 900, 42, { font: t.font, size: 27, bold: true, color: C.orange, align: "center" });
   return s;
 }
 
@@ -409,28 +408,26 @@ function slide10(p, lang) {
   const t = COPY[lang], s = p.slides.add();
   addBase(s, lang, 10, t.titles[9], t.labels[9], "Source: Expanded review synthesis; ATS/ACCP 2024.");
   const rows = lang === "en" ? [
-    ["Targeting", "Peripheral lesion, absent bronchus sign, tool not in lesion", "Re-read CT; choose airway, pleural, or nodal target", C.blue],
-    ["Sampling", "Surface tissue, necrotic center, insufficient core", "Change needle / cryobiopsy / TTNB route", C.orange],
-    ["Pathology", "Blood, necrosis, atypia, nonspecific inflammation", "Label as nondiagnostic; do not call benign", C.red],
-    ["Microbiology", "Cytology only; no AFB / fungal / bacterial allocation", "Predefine specimen allocation before the procedure", C.green],
-    ["System", "Same route repeated without yield review or owner", "Multidisciplinary review + escalation trigger", C.violet],
+    ["Target", "Tool missed the lesion", "Re-read CT; choose airway, pleural, or nodal target", C.blue],
+    ["Sample", "Surface tissue, necrosis, or too little core", "Change the needle, biopsy method, or route", C.orange],
+    ["Pathology", "Blood, necrosis, atypia, or inflammation", "Call it nondiagnostic—not benign", C.red],
+    ["Cultures", "No AFB, fungal, or bacterial allocation", "Plan specimen allocation before the procedure", C.green],
   ] : [
-    ["定位", "周邊病灶、無 bronchus sign、工具未進入病灶", "重讀 CT；改選 airway、pleural 或 nodal 標的", C.blue],
-    ["採樣", "只取到表面、壞死中心或 core 不足", "更換 needle／cryobiopsy／TTNB 路徑", C.orange],
-    ["病理", "血液、壞死、異型、非特異性發炎", "明確標為 nondiagnostic，不可寫成 benign", C.red],
-    ["微生物", "只送 cytology，未分配 AFB／黴菌／細菌檢體", "處置前完成 specimen allocation", C.green],
-    ["系統", "未重新檢討 yield 就重複同一路徑", "多專科討論＋明確升級條件", C.violet],
+    ["標的", "工具沒有真正進入病灶", "重讀 CT；改選呼吸道、胸膜或淋巴結", C.blue],
+    ["採樣", "表面、壞死中心或組織量不足", "更換針具、採樣方式或路徑", C.orange],
+    ["病理", "血液、壞死、異型或非特異發炎", "標為未確診，不可寫成良性", C.red],
+    ["培養", "沒有分配 AFB、黴菌或細菌檢體", "處置前先規劃檢體分配", C.green],
   ];
-  textBox(s, lang === "en" ? "Failure mode" : "失敗層次", 72, 156, 170, 30, { font: t.font, size: 16, bold: true, color: C.gray });
-  textBox(s, lang === "en" ? "What went wrong" : "問題在哪裡", 260, 156, 410, 30, { font: t.font, size: 16, bold: true, color: C.gray });
-  textBox(s, lang === "en" ? "Change before repeating" : "重做前要改變什麼", 700, 156, 450, 30, { font: t.font, size: 16, bold: true, color: C.gray });
+  textBox(s, lang === "en" ? "Failure" : "失敗層次", 72, 156, 170, 32, { font: t.font, size: 21, bold: true, color: C.gray });
+  textBox(s, lang === "en" ? "What went wrong" : "問題在哪裡", 250, 156, 420, 32, { font: t.font, size: 21, bold: true, color: C.gray });
+  textBox(s, lang === "en" ? "Change before repeating" : "重做前要改什麼", 690, 156, 470, 32, { font: t.font, size: 21, bold: true, color: C.gray });
   rows.forEach((r, i) => {
-    const y = 196 + i * 84;
-    rect(s, 72, y, 1100, 72, i % 2 ? C.soft : C.paper, C.line, 1);
-    rect(s, 72, y, 8, 72, r[3]);
-    textBox(s, r[0], 94, y + 21, 146, 30, { font: t.font, size: 19, bold: true, color: r[3] });
-    textBox(s, r[1], 260, y + 15, 410, 42, { font: t.font, size: 16, color: C.ink });
-    textBox(s, r[2], 700, y + 15, 450, 42, { font: t.font, size: 16, bold: true, color: C.blue });
+    const y = 202 + i * 98;
+    rect(s, 72, y, 1100, 86, i % 2 ? C.soft : C.paper, C.line, 1);
+    rect(s, 72, y, 8, 86, r[3]);
+    textBox(s, r[0], 94, y + 24, 136, 36, { font: t.font, size: 24, bold: true, color: r[3] });
+    textBox(s, r[1], 250, y + 14, 420, 62, { font: t.font, size: 22, color: C.ink });
+    textBox(s, r[2], 690, y + 14, 470, 62, { font: t.font, size: 22, bold: true, color: C.blue });
   });
   return s;
 }
@@ -446,7 +443,7 @@ function slide11(p, lang) {
   const note = lang === "en" ? "A search priority - not an exclusion rule" : "這是搜尋優先順序，不是排除規則";
   rect(s, 258, 468, 764, 70, C.soft, C.orange, 2, false);
   textBox(s, note, 292, 488, 696, 34, { font: t.font, size: 24, bold: true, color: C.orange, align: "center" });
-  textBox(s, lang === "en" ? "Always correlate the vascular bed with lesion location, pleural disease, prior surgery, and chronic inflammation." : "血管床必須與病灶位置、胸膜疾病、手術史與慢性發炎一起解讀。", 190, 573, 900, 42, { font: t.font, size: 18, color: C.gray, align: "center" });
+  textBox(s, lang === "en" ? "Always match the vessel to the lesion." : "血管床必須和病灶位置一起解讀。", 190, 573, 900, 44, { font: t.font, size: 26, color: C.gray, align: "center" });
   return s;
 }
 
@@ -457,22 +454,22 @@ function slide12(p, lang) {
   arrow(s, 648, 282, 176, 48, C.orange);
   arrow(s, 1028, 282, 112, 48, C.slate);
   const nodes = lang === "en" ? [
-    ["Inflow", "Hypertrophic / tortuous artery\nBronchial or non-bronchial systemic feeder", C.red, 72],
-    ["Lesion / sac", "Parenchymal blush\nAneurysm or pseudoaneurysm\nExtravasation may be absent", C.orange, 450],
-    ["Outflow / shunt", "Early venous filling\nBronchial-pulmonary communication\nDirection of flow", C.blue, 832],
+    ["Inflow", "Hypertrophic systemic feeder", C.red, 72],
+    ["Lesion / sac", "Blush\nAneurysm / pseudoaneurysm", C.orange, 450],
+    ["Outflow / shunt", "Early venous filling\nShunt / flow direction", C.blue, 832],
   ] : [
-    ["流入", "肥大／迂曲動脈\nbronchial 或 non-bronchial systemic feeder", C.red, 72],
-    ["病灶／囊體", "肺實質染色\n動脈瘤或假性動脈瘤\n未必出現顯影劑外滲", C.orange, 450],
-    ["流出／分流", "提早靜脈顯影\nbronchial-pulmonary communication\n血流方向", C.blue, 832],
+    ["流入", "肥大、迂曲的體循環供血", C.red, 72],
+    ["病灶／囊體", "染色\n動脈瘤／假性動脈瘤", C.orange, 450],
+    ["流出／分流", "提早靜脈顯影\n分流／血流方向", C.blue, 832],
   ];
   nodes.forEach((n) => {
     rect(s, n[3], 210, 310, 210, C.paper, n[2], 3, false);
     textBox(s, n[0], n[3] + 24, 238, 262, 38, { font: t.font, size: 24, bold: true, color: n[2], align: "center" });
-    textBox(s, n[1], n[3] + 24, 300, 262, 92, { font: t.font, size: 17, color: C.ink, align: "center" });
+    textBox(s, n[1], n[3] + 18, 292, 274, 110, { font: t.font, size: 22, color: C.ink, align: "center" });
   });
-  const lex = lang === "en" ? "Report: hypertrophy • tortuosity • neovascularity • blush • early venous filling • pseudoaneurysm • systemic-pulmonary communication" : "報告用語：hypertrophy • tortuosity • neovascularity • blush • early venous filling • pseudoaneurysm • systemic-pulmonary communication";
+  const lex = lang === "en" ? "Report: hypertrophy • blush • early venous filling • pseudoaneurysm • shunt" : "報告用語：肥大 • 染色 • 提早靜脈顯影 • 假性動脈瘤 • 分流";
   rect(s, 92, 494, 1096, 84, C.soft, C.slate, 1, false);
-  textBox(s, lex, 118, 516, 1044, 48, { font: t.font, size: 17, bold: true, color: C.slate, align: "center" });
+  textBox(s, lex, 118, 512, 1044, 56, { font: t.font, size: 24, bold: true, color: C.slate, align: "center" });
   return s;
 }
 
@@ -492,11 +489,11 @@ function slide13(p, lang) {
     const y = 174 + i * 145;
     rect(s, 76, y, 1120, 120, C.paper, ty[3], 2, false);
     textBox(s, ty[0], 104, y + 24, 124, 34, { font: t.font, size: 23, bold: true, color: ty[3] });
-    textBox(s, ty[1], 250, y + 22, 360, 38, { font: t.font, size: 21, bold: true, color: C.ink });
-    textBox(s, ty[2], 646, y + 18, 500, 74, { font: t.font, size: 17, color: C.gray });
+    textBox(s, ty[1], 250, y + 18, 350, 76, { font: t.font, size: 24, bold: true, color: C.ink });
+    textBox(s, ty[2], 646, y + 12, 500, 92, { font: t.font, size: 22, color: C.gray });
     arrow(s, 594, y + 38, 40, 26, ty[3]);
   });
-  textBox(s, lang === "en" ? "The treatment target is the full inflow-sack-outflow circuit - not the brightest spot on one image." : "治療標的是完整 inflow-sack-outflow 迴路，不是單張影像上最顯眼的亮點。", 150, 620, 980, 34, { font: t.font, size: 19, bold: true, color: C.orange, align: "center" });
+  textBox(s, lang === "en" ? "Treat the entire inflow-sac-outflow circuit." : "治療完整的流入－囊體－流出迴路。", 150, 614, 980, 42, { font: t.font, size: 27, bold: true, color: C.orange, align: "center" });
   return s;
 }
 
@@ -511,13 +508,13 @@ function slide14(p, lang) {
   textBox(s, right[0], 714, 212, 446, 40, { font: t.font, size: 24, bold: true, color: C.red, align: "center" });
   left.slice(1).forEach((v, i) => {
     ellipse(s, 126, 288 + i * 58, 22, 22, C.green);
-    textBox(s, v, 166, 282 + i * 58, 380, 38, { font: t.font, size: 18, color: C.ink });
+    textBox(s, v, 166, 278 + i * 58, 390, 46, { font: t.font, size: 23, color: C.ink });
   });
   right.slice(1).forEach((v, i) => {
     ellipse(s, 720, 288 + i * 58, 22, 22, C.red);
-    textBox(s, v, 760, 282 + i * 58, 380, 38, { font: t.font, size: 18, color: C.ink });
+    textBox(s, v, 760, 278 + i * 58, 390, 46, { font: t.font, size: 23, color: C.ink });
   });
-  textBox(s, lang === "en" ? "Hemostasis is a clinical milestone - not a final diagnosis." : "止血是重要里程碑，但不是最終診斷。", 254, 600, 772, 40, { font: t.font, size: 23, bold: true, color: C.blue, align: "center" });
+  textBox(s, lang === "en" ? "Hemostasis is not a diagnosis." : "止血不等於完成診斷。", 254, 596, 772, 46, { font: t.font, size: 29, bold: true, color: C.blue, align: "center" });
   return s;
 }
 
@@ -535,20 +532,20 @@ function slide15(p, lang) {
   [0, 20, 40, 60, 80, 100].forEach((v) => {
     const x = plotX + v / 100 * plotW;
     rect(s, x, 190, 1, 340, C.line);
-    const tickX = v === 100 ? x - 36 : x - 24;
-    const tickW = v === 100 ? 72 : 48;
-    textBox(s, `${v}%`, tickX, 540, tickW, 24, { font: t.font, size: 12, color: C.gray, align: "center" });
+    const tickX = x - 36;
+    const tickW = 72;
+    textBox(s, `${v}%`, tickX, 538, tickW, 30, { font: t.font, size: 17, color: C.gray, align: "center" });
   });
   rows.forEach((r, i) => {
     const y = 210 + i * 82;
-    textBox(s, r[0], 92, y + 8, 285, 34, { font: t.font, size: 20, bold: true, color: C.ink });
+    textBox(s, r[0], 92, y + 4, 295, 42, { font: t.font, size: 24, bold: true, color: C.ink });
     rect(s, plotX, y, plotW, 44, C.soft, C.line, 1, false);
     const left = plotX + r[1] / 100 * plotW;
     const width = (r[2] - r[1]) / 100 * plotW;
     rect(s, left, y + 7, Math.max(width, 10), 30, r[3], "none", 0, true);
-    textBox(s, `${r[1]}-${r[2]}%`, left - 65, y + 9, width + 130, 24, { font: t.font, size: 14, bold: true, color: C.ink, align: "center" });
+    textBox(s, `${r[1]}-${r[2]}%`, left - 65, y + 6, width + 130, 30, { font: t.font, size: 18, bold: true, color: C.ink, align: "center" });
   });
-  textBox(s, lang === "en" ? "Do not quote 90-100% as if it meant one-year freedom from rebleeding." : "不可把 90-100% 技術成功率說成一年內不再出血。", 220, 606, 840, 34, { font: t.font, size: 20, bold: true, color: C.red, align: "center" });
+  textBox(s, lang === "en" ? "Technical success is not one-year control." : "技術成功不等於一年內不再出血。", 220, 600, 840, 44, { font: t.font, size: 27, bold: true, color: C.red, align: "center" });
   return s;
 }
 
@@ -556,26 +553,26 @@ function slide16(p, lang) {
   const t = COPY[lang], s = p.slides.add();
   addBase(s, lang, 16, t.titles[15], t.labels[15], "Source: CIRSE 2022, rebleeding risk factors.");
   const causes = lang === "en" ? [
-    ["Incomplete embolization", "Culprit artery or collateral missed at the first procedure", C.red],
-    ["Untreated disease", "Tumor, infection, or inflammatory destruction continues", C.blue],
-    ["Recanalization", "Previously treated vessel becomes patent again", C.orange],
-    ["New collaterals", "Chronic inflammation recruits new non-bronchial supply", C.violet],
+    ["Incomplete embolization", "A culprit artery or collateral was missed", C.red],
+    ["Untreated disease", "Tumor, infection, or inflammation continues", C.blue],
+    ["Recanalization", "A treated vessel becomes patent again", C.orange],
+    ["New collaterals", "Chronic inflammation recruits new supply", C.violet],
   ] : [
-    ["栓塞不完整", "第一次處置漏掉責任動脈或側枝循環", C.red],
-    ["基礎疾病未治療", "腫瘤、感染或發炎性破壞持續進展", C.blue],
-    ["血管再通", "原先處理的血管再次恢復通暢", C.orange],
-    ["新生側枝", "慢性發炎招募新的 non-bronchial 供血", C.violet],
+    ["栓塞不完整", "漏掉責任動脈或側枝循環", C.red],
+    ["基礎疾病未治療", "腫瘤、感染或發炎持續進展", C.blue],
+    ["血管再通", "已處理的血管再次恢復通暢", C.orange],
+    ["新生側枝", "慢性發炎招募新的供血", C.violet],
   ];
   causes.forEach((c, i) => {
     const col = i % 2, row = Math.floor(i / 2);
     const x = 92 + col * 574, y = 176 + row * 208;
     ellipse(s, x, y, 58, 58, c[2]);
     textBox(s, String(i + 1), x, y + 12, 58, 32, { font: t.font, size: 22, bold: true, color: C.paper, align: "center" });
-    textBox(s, c[0], x + 84, y + 2, 420, 34, { font: t.font, size: 23, bold: true, color: c[2] });
-    textBox(s, c[1], x + 84, y + 52, 420, 70, { font: t.font, size: 18, color: C.ink });
+    textBox(s, c[0], x + 84, y, 430, 42, { font: t.font, size: 26, bold: true, color: c[2] });
+    textBox(s, c[1], x + 84, y + 50, 430, 76, { font: t.font, size: 23, color: C.ink });
     rect(s, x + 84, y + 136, 420, 2, C.line);
   });
-  textBox(s, lang === "en" ? "Rebleeding should trigger renewed localization and etiologic review - not only repeat embolization." : "再出血應重新啟動定位與病因檢討，不只是直接重做栓塞。", 190, 606, 900, 36, { font: t.font, size: 20, bold: true, color: C.red, align: "center" });
+  textBox(s, lang === "en" ? "Re-localize. Reassess the disease." : "再出血時，要重新定位並檢討病因。", 190, 600, 900, 46, { font: t.font, size: 28, bold: true, color: C.red, align: "center" });
   return s;
 }
 
@@ -595,21 +592,21 @@ function slide17(p, lang) {
     ["縱膈／肺門淋巴結", "EBUS-TBNA", "診斷＋分期，避開高血管性腫塊", C.green],
     ["高度疑慮持續", "VATS／外科 biopsy 或切除", "取得 definitive tissue，也可能同時治療", C.orange],
   ];
-  const headers = lang === "en" ? ["Best target", "Route", "Why it may be better"] : ["最佳標的", "建議路徑", "為什麼可能更好"];
-  [72, 430, 780].forEach((x, i) => {
-    const widths = [358, 350, 404];
+  const headers = lang === "en" ? ["Best target", "Route"] : ["最佳標的", "建議路徑"];
+  [72, 542].forEach((x, i) => {
+    const widths = [470, 642];
     rect(s, x, 158, widths[i], 44, C.blue);
-    textBox(s, headers[i], x + 12, 169, widths[i] - 24, 22, { font: t.font, size: 16, bold: true, color: C.paper, align: "center" });
+    textBox(s, headers[i], x + 12, 164, widths[i] - 24, 32, { font: t.font, size: 23, bold: true, color: C.paper, align: "center" });
   });
   rows.forEach((r, i) => {
-    const y = 202 + i * 76, fill = i % 2 ? C.soft : C.paper;
-    [72, 430, 780].forEach((x, ci) => {
-      const widths = [358, 350, 404];
-      rect(s, x, y, widths[ci], 76, fill, C.line, 1);
-      textBox(s, r[ci], x + 14, y + 12, widths[ci] - 28, 48, { font: t.font, size: 15, bold: ci === 0, color: ci === 0 ? r[3] : C.ink, align: ci === 1 ? "center" : "left" });
+    const y = 202 + i * 80, fill = i % 2 ? C.soft : C.paper;
+    [72, 542].forEach((x, ci) => {
+      const widths = [470, 642];
+      rect(s, x, y, widths[ci], 80, fill, C.line, 1);
+      textBox(s, r[ci], x + 16, y + 10, widths[ci] - 32, 60, { font: t.font, size: 22, bold: ci === 0, color: ci === 0 ? r[3] : C.ink, align: ci === 1 ? "center" : "left" });
     });
   });
-  textBox(s, lang === "en" ? "Route selection must account for vascular safety before sampling." : "選擇採樣路徑前，必須先確認血管安全性。", 300, 600, 680, 34, { font: t.font, size: 19, bold: true, color: C.red, align: "center" });
+  textBox(s, lang === "en" ? "Confirm vascular safety before sampling." : "採樣前先確認血管安全性。", 300, 614, 680, 38, { font: t.font, size: 25, bold: true, color: C.red, align: "center" });
   return s;
 }
 
@@ -618,10 +615,10 @@ function slide18(p, lang) {
   addBase(s, lang, 18, t.titles[17], t.labels[17], "M&M framework: avoid hindsight bias; distinguish hemostatic and diagnostic outcomes.");
   rect(s, 98, 318, 1084, 6, C.line);
   const events = lang === "en" ? [
-    ["Bleeding identified", "Severity and source still uncertain", C.red],
-    ["Nondiagnostic sampling", "Mass remains unresolved", C.slate],
+    ["Bleeding identified", "Severity and source uncertain", C.red],
+    ["Nondiagnostic sample", "Mass remains unresolved", C.slate],
     ["BAE controls bleeding", "Acute hazard improves", C.green],
-    ["Diagnostic closure", "The unresolved mass loses an owner", C.orange],
+    ["Diagnostic closure", "The mass loses an owner", C.orange],
   ] : [
     ["辨識咳血", "嚴重度與來源仍未完成", C.red],
     ["採樣未確診", "肺部腫塊仍未解決", C.slate],
@@ -632,12 +629,12 @@ function slide18(p, lang) {
     const x = 74 + i * 292;
     ellipse(s, x + 78, 286, 70, 70, e[2], C.paper, 3);
     textBox(s, String(i + 1), x + 78, 303, 70, 34, { font: t.font, size: 23, bold: true, color: C.paper, align: "center" });
-    textBox(s, e[0], x, 392, 226, 54, { font: t.font, size: 20, bold: true, color: e[2], align: "center" });
-    textBox(s, e[1], x, 458, 226, 66, { font: t.font, size: 16, color: C.gray, align: "center" });
+    textBox(s, e[0], x, 388, 226, 64, { font: t.font, size: 24, bold: true, color: e[2], align: "center" });
+    textBox(s, e[1], x, 462, 226, 82, { font: t.font, size: 22, color: C.gray, align: "center" });
   });
-  rect(s, 876, 176, 286, 66, C.soft, C.orange, 2, false);
-  textBox(s, lang === "en" ? "Critical question:\nWho owns the unresolved diagnosis?" : "關鍵問題：\n誰負責未完成的病因診斷？", 894, 184, 250, 52, { font: t.font, size: 16, bold: true, color: C.orange, align: "center" });
-  textBox(s, lang === "en" ? "A fair review asks what was known at the time - and which process allowed uncertainty to disappear from the problem list." : "公平的回顧應問：當時知道什麼？又是哪個流程讓不確定性從 problem list 消失？", 182, 594, 916, 44, { font: t.font, size: 19, bold: true, color: C.ink, align: "center" });
+  rect(s, 842, 168, 320, 86, C.soft, C.orange, 2, false);
+  textBox(s, lang === "en" ? "Who owns the\nunresolved diagnosis?" : "誰負責未完成的\n病因診斷？", 860, 182, 284, 62, { font: t.font, size: 22, bold: true, color: C.orange, align: "center" });
+  textBox(s, lang === "en" ? "Ask what was known then—and why uncertainty vanished." : "問當時知道什麼，也問不確定性為何消失。", 182, 590, 916, 52, { font: t.font, size: 25, bold: true, color: C.ink, align: "center" });
   return s;
 }
 
@@ -648,25 +645,25 @@ function slide19(p, lang) {
   arrow(s, 574, 312, 74, 38, C.line);
   arrow(s, 864, 312, 74, 38, C.line);
   const items = lang === "en" ? [
-    ["1", "Diagnostic owner", "One clinician coordinates radiology, pulmonology, IR, surgery, pathology, and ID", C.blue],
-    ["2", "Target agreement", "Name the exact lesion, airway, node, or vessel each team is addressing", C.slate],
-    ["3", "Specimen allocation", "Pre-plan histology, cytology, bacterial, AFB, fungal, and molecular studies", C.green],
-    ["4", "Deadline + trigger", "Set the next test date and escalation for growth, recurrent bleeding, nodes, or another nondiagnostic result", C.orange],
+    ["1", "Diagnostic owner", "One clinician owns the unresolved diagnosis", C.blue],
+    ["2", "Exact target", "Name the lesion, airway, node, or vessel", C.slate],
+    ["3", "Specimen plan", "Pre-assign pathology and cultures", C.green],
+    ["4", "Deadline", "Set the next test and escalation rule", C.orange],
   ] : [
-    ["1", "診斷負責人", "由單一臨床醫師整合影像、胸腔、IR、外科、病理與感染科", C.blue],
-    ["2", "標的一致", "明確命名每個團隊處理的是哪個病灶、呼吸道、淋巴結或血管", C.slate],
-    ["3", "檢體分配", "處置前規劃病理、細胞學、細菌、AFB、黴菌與分子檢查", C.green],
-    ["4", "期限＋升級條件", "設定下一次檢查日期，以及腫塊增大、再出血、新淋巴結或再次未確診時的升級方案", C.orange],
+    ["1", "診斷負責人", "由一位臨床醫師負責未完成診斷", C.blue],
+    ["2", "明確標的", "命名病灶、呼吸道、淋巴結或血管", C.slate],
+    ["3", "檢體計畫", "事先分配病理與微生物檢體", C.green],
+    ["4", "明確期限", "設定下一次檢查與升級條件", C.orange],
   ];
   items.forEach((it, i) => {
     const x = 72 + i * 290;
     rect(s, x, 202, 250, 334, C.paper, it[3], 2, false);
     ellipse(s, x + 90, 164, 70, 70, it[3], C.paper, 3);
     textBox(s, it[0], x + 90, 181, 70, 34, { font: t.font, size: 24, bold: true, color: C.paper, align: "center" });
-    textBox(s, it[1], x + 22, 270, 206, 62, { font: t.font, size: 22, bold: true, color: it[3], align: "center" });
-    textBox(s, it[2], x + 24, 356, 202, 128, { font: t.font, size: 16, color: C.ink, align: "center" });
+    textBox(s, it[1], x + 18, 266, 214, 72, { font: t.font, size: 25, bold: true, color: it[3], align: "center" });
+    textBox(s, it[2], x + 18, 354, 214, 142, { font: t.font, size: 23, color: C.ink, align: "center" });
   });
-  textBox(s, lang === "en" ? "Make unresolved diagnosis an explicit active problem." : "把「病因未解決」列為明確的 active problem。", 312, 594, 656, 38, { font: t.font, size: 21, bold: true, color: C.red, align: "center" });
+  textBox(s, lang === "en" ? "Keep the unresolved diagnosis active." : "把「病因未解決」列為 active problem。", 312, 590, 656, 46, { font: t.font, size: 27, bold: true, color: C.red, align: "center" });
   return s;
 }
 
@@ -674,9 +671,9 @@ function slide20(p, lang) {
   const t = COPY[lang], s = p.slides.add();
   addBase(s, lang, 20, t.titles[19], t.labels[19], "Educational synthesis; patient-specific decisions require multidisciplinary judgment.");
   const msgs = lang === "en" ? [
-    ["1", "Control bleeding by physiology", "Airway, gas exchange, hemodynamics, trajectory, and reserve determine urgency.", C.red],
-    ["2", "Keep procedure results honest", "Blood, necrosis, atypia, and nonspecific inflammation are nondiagnostic - not benign.", C.orange],
-    ["3", "Finish the underlying diagnosis", "BAE creates a window. Use it to select a better target, route, specimen plan, and owner.", C.blue],
+    ["1", "Control bleeding by physiology", "Airway, oxygenation, circulation, trajectory, and reserve set urgency.", C.red],
+    ["2", "Keep procedure results honest", "Blood, necrosis, atypia, and inflammation are nondiagnostic—not benign.", C.orange],
+    ["3", "Finish the diagnosis", "After BAE, choose a better target, route, specimen plan, and owner.", C.blue],
   ] : [
     ["1", "依生理狀態控制出血", "呼吸道、氣體交換、血流動力、變化趨勢與心肺儲備決定急迫性。", C.red],
     ["2", "誠實標記處置結果", "血液、壞死、異型與非特異性發炎都是 nondiagnostic，不是 benign。", C.orange],
@@ -686,8 +683,8 @@ function slide20(p, lang) {
     const y = 168 + i * 126;
     ellipse(s, 82, y, 72, 72, m[3]);
     textBox(s, m[0], 82, y + 17, 72, 36, { font: t.font, size: 25, bold: true, color: C.paper, align: "center" });
-    textBox(s, m[1], 186, y, 420, 38, { font: t.font, size: 23, bold: true, color: m[3] });
-    textBox(s, m[2], 186, y + 48, 940, 56, { font: t.font, size: 18, color: C.ink });
+    textBox(s, m[1], 186, y - 2, 470, 46, { font: t.font, size: 27, bold: true, color: m[3] });
+    textBox(s, m[2], 186, y + 50, 940, 68, { font: t.font, size: 23, color: C.ink });
   });
   rect(s, 72, 558, 1120, 74, C.soft, C.line, 1, false);
   textBox(s, lang === "en" ? "Key sources: AAFP 2022 • ACR Hemoptysis • CIRSE 2022 • ATS/ACCP 2024 • JAMA 2022 • Chen 2022\nScope warning: pulmonary nodule thresholds do not automatically apply to a >3 cm mass." : "主要來源：AAFP 2022 • ACR Hemoptysis • CIRSE 2022 • ATS/ACCP 2024 • JAMA 2022 • Chen 2022\n範圍提醒：pulmonary nodule 的追蹤門檻不能直接套用到 >3 cm 的 lung mass。", 94, 574, 1076, 44, { font: t.font, size: 14, color: C.gray, align: "center" });
