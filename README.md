@@ -1,5 +1,7 @@
 # Medical Slide Templates
 
+**English version:** [README_EN.md](README_EN.md) · [Open the English catalog](decks/medical-template-catalog-en/index.html)
+
 学会発表・抄読会・症例報告・教育講演のための医学スライドテンプレート集。
 
 **医者を、資料作りから解放する。** 中身を差し替えるだけで、NEJM / Lancet / JAMA の図版水準 —— 白背景・無彩色＋臨床ブルー1色・装飾ゼロ —— の学会スライドになる。デザインを悩む時間を、診療と研究に返すためのツール。
